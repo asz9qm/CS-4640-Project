@@ -5,11 +5,11 @@ Context: Major + School requirements
 
 1. Schedule
 
-- visual interface
+>- visual interface
   
 2. Class Recommendations
 
-- Drop down menu 
+>- Drop down menu 
   
 3. Account management
 
@@ -17,6 +17,6 @@ Context: Major + School requirements
 
 5. Transcript element
 
-- GPA calculation
+>- GPA calculation
   
 6. Allow term management/Personalization
