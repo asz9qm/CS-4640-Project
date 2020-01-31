@@ -11,4 +11,4 @@ Context: Major + School requirements
 4. Drag and Drop
 5. Transcript element
   GPA calculation
-6. Allow term management
+6. Allow term management/Personalization
