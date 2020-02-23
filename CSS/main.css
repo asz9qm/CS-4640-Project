@@ -1,0 +1,354 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+
+/**************************************/
+
+body {
+  background: #003333;
+  /* background-image: url("filename.gif") */
+  color: #888;    /* font color */
+  font: 300 16px/22px "Lato", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+
+
+.container {
+  margin: 0 auto;
+  /* width: 960px; */         /* initial design */
+  width: 100%;                /* responsive */	
+  padding-left: 30px;
+  padding-right: 30px;
+}
+ 
+ 
+ 
+ 
+.grid {
+  margin: 0 auto;
+  /* width: 960px; */         /* initial design */
+  width: 100%;                /* responsive */	
+  padding-left: 15px;
+  padding-right: 15px;
+  text-align: center;
+}
+ 
+.content-col {
+  display: inline-block;	  
+} 
+
+.content-row {
+  background: #ffffff;
+  padding: 66px 0 44px 0;
+}
+
+.subtitle {
+  color: #003333;	
+  font-size: 21px;
+}
+
+h1, h3, h4, h5, p {
+  margin-bottom: 22px;
+}
+
+h1 {
+  color: #ccffcc;	
+  font-size: 36px;
+  line-height: 44px;
+}
+
+h2 {
+  color: #ccffcc;	
+  font-size: 24px;
+  line-height: 44px;
+}
+
+h3 {
+  color: #ccffcc;	
+  font-size: 21px;
+}
+
+h4 {
+  color: #ccffcc;	
+  font-size: 18px;
+}
+
+h5 {
+  color: #a9b2b9;
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+a {
+  color: #648880;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #a9b2b9;
+}
+
+p a {
+  border-bottom: 1px solid #dfe2e5;
+}
+
+.primary-header a, .primary-footer a {
+   color: #ffffff;
+}
+
+.primary-header a:hover, .primary-footer a:hover {
+  color: #648880;
+}
+
+.logo {  
+  float: left;
+  font-size: 48px;
+  font-weight: 100;
+  letter-spacing: .5px;
+  line-height: 44px;
+  padding: 40px 0 22px 0;
+  text-transform: uppercase;
+}
+
+.tagline {
+  margin: 66px 0 22px 0;
+  text-align: right;
+}
+
+.primary-nav {
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+}
+
+.primary-footer {
+  color: #648880;
+  font-size: 14px;
+  padding-bottom: 44px;
+  padding-top: 44px;
+}
+
+.copyright {
+  float: left;
+  color: #ccffcc;
+}
+
+.nav {
+  text-align: right;
+  width: 100%;
+}
+
+.nav li {
+  display: inline-block;
+  margin: 0 10px;
+  vertical-align: top;
+}
+
+.title {
+  color: #fff;
+  line-height: 44px;
+  padding: 22px 48px 66px 120px;
+  text-align: center;
+}
+
+.title h2 {
+  font-size: 36px;
+}
+
+.title p {
+  font-size: 24px;
+  font-weight: 100;
+}
+
+.highlight a:hover h3 {
+  color: #a9b2b9;
+}
+
+.highlight img {
+  border-radius: 5px;
+  margin-bottom: 22px;
+  max-width: 100%;
+  border: solid;
+  padding: 20px 30px 20px 30px;
+  display: inline-block;
+}
+
+
+/**************************************/
+/*   css to make the page responsive  */
+ 
+/* 1. Ensure that all HTML elements have the box-sizing property set to border-box.
+   This makes sure that the padding and border are included in the total width
+   and height of the elements. */
+* {
+  box-sizing: border-box;
+}
+
+
+/* 2 Define column width -- to be used as default-width */  
+.col-1 { width: 8.33%; }
+.col-2 { width: 16.66%; }
+.col-3 { width: 25%; }
+.col-4 { width: 33.33%; }
+.col-5 { width: 41.66%; }
+.col-6 { width: 50%; }
+.col-7 { width: 58.33%; }
+.col-8 { width: 66.66%; }
+.col-9 { width: 75%; }
+.col-10 { width: 83.33%; }
+.col-11 { width: 91.66%; }
+.col-12 { width: 100%; }
+
+
+
+
+
+/* set these columns to float left, and have a padding */
+[class*="col-"] {
+  float: left;
+  padding: 15px;
+}
+
+
+/* 3. Add a break point, use a media query to insert a breakpoint (between desktop, tablets, and mobiles) */
+
+/* 3.1 Ensure that all col-* is default to 100% on mobile -- "mobile first" ) */ 
+/* For mobile phones: */
+[class*="col-"] {
+  width: 100%;
+}
+
+
+/*
+roughly 
+- desktop  max-width: 992px
+- medium size tablet  max-width: 768px
+- mobile  max-width: 480px  
+*/
+
+/* 3.2 Add CSS rules to adjust screen that is smaller than 768px (for example, tablets and mobile phones) */
+/* change font and size with media queries */ 
+@media only screen and (max-width: 768px) {
+  body {
+    background-color: black; 
+  }
+}
+	
+
+/* optional: 3.4. add CSS rules to style when screen is bigger than 768px (for example, desktop) */
+@media only screen and (min-width: 600px) {
+  /* For tablets: */
+/*   .col-s-1 {width: 8.33%;}
+  .col-s-2 {width: 16.66%;}
+  .col-s-3 {width: 25%;}
+  .col-s-4 {width: 33.33%;}
+  .col-s-5 {width: 41.66%;}
+  .col-s-6 {width: 50%;}
+  .col-s-7 {width: 58.33%;}
+  .col-s-8 {width: 66.66%;}
+  .col-s-9 {width: 75%;}
+  .col-s-10 {width: 83.33%;}
+  .col-s-11 {width: 91.66%;}
+  .col-s-12 {width: 100%;} */
+}
+
+
+/* 3.3 Add CSS rules to adjust screen that is smaller than 768px (for example, tablets and mobile phones) */
+@media only screen and (min-width: 768px) {
+  /* For desktop: */
+  .col-1 {width: 8.33%;}
+  .col-2 {width: 16.66%;}
+  .col-3 {width: 25%;}
+  .col-4 {width: 33.33%;}
+  .col-5 {width: 41.66%;}
+  .col-6 {width: 50%;}
+  .col-7 {width: 58.33%;}
+  .col-8 {width: 66.66%;}
+  .col-9 {width: 75%;}
+  .col-10 {width: 83.33%;}
+  .col-11 {width: 91.66%;}
+  .col-12 {width: 100%;}
+}
+
+
+
+
+/* change font and size with media queries */ 
+
+/* 3.5. If the screen size is 600px or less, set the font-size and padding (for example, small tablets and mobile phones) */
+@media only screen and (max-width: 600px) {
+  .title h2 {
+     font-size: 24px;
+  } 
+  .title p {
+     font-size: 20px;
+  }  
+  .logo {       
+     font-size: 36px;
+  }
+  .container {
+     padding-left: 24px;
+     padding-right: 20px;
+  }  
+  .title {  
+     line-height: 40px;
+     padding: 30px 20px 20px 40px;
+  }
+}
+
+/* 3.6 add rules to hide the top content when the screebn is smaller than 600px */
+@media only screen and (max-width: 600px) {
+  #fadeshow {
+    display: none;
+  }
+}
+  
+.row { width: 100%; }
