@@ -1,3 +1,568 @@
 <html>
+    <head>
+        <title>Requirements Page</title>
+        <meta name="viewport" content="initial-scale=1.0">
+        <meta charset="utf-8">
+        <meta name="author" content="Alan Zhai">
+        <meta name="description" content="Requirements">
+        <link rel="stylesheet" href="../CSS/requirements.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </head>
+    
+    <div>
+        <label for="dropdown">Requirement Type:</label>
+        <select id="Choice">
+        <option value="1">General Requirements</option>
+        <option value="2">Computing Electives</option>
+        <option value="3">Integration Electives</option>
+        </select>
+    </div>
+    <br>
+    <div>
+        <table style="width:100%" id = "general">
+            <colgroup>
+                <col class="table1">
+                <col class="table2">
+                <col class="table3">
+                <col class="table4">
+                <col class="table5">
+              </colgroup>
+            <tr>
+                <th>Mnemonic</th>
+                <th>Class Name</th>
+                <th>Taken?</th>
+                <th>Semester</th>
+                <th>Grade</th>
+            </tr>
+
+            <tr>
+                <td>CS 1110</td>
+                <td>Introduction to Programming</td>
+                <td> <input type="checkbox" id="class1" name="class1"> </td>
+                <td> 
+                    <select id="semester1" onchange="">
+                        <option value="Fall 2017">Fall 2017</option>
+                        <option value="Spring 2018">Spring 2018</option>
+                        <option value="Fall 2018">Fall 2018</option>
+                        <option value="Spring 2019">Spring 2019</option>
+                        <option value="Fall 2019">Fall 2019</option>
+                        <option value="Spring 2020">Spring 2020</option>
+                    </select>
+                </td>
+                <td>
+                    <select id="grade1" onchange="">
+                        <option value="A">A</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B">B</option>
+                        <option value="B-">B-</option>
+                        <option value="C+">C+</option>
+                        <option value="C">C</option>
+                        <option value="C-">C-</option>
+                        <option value="D+">D+</option>
+                        <option value="D">D</option>
+                        <option value="D-">D-</option>
+                        <option value="F">F</option>                        
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>CS 2102</td>
+                <td>Discrete Mathematics</td>
+                <td> <input type="checkbox" id="class2" name="class2"> </td>
+                <td> 
+                    <select id="semester2" onchange="">
+                        <option value="Fall 2017">Fall 2017</option>
+                        <option value="Spring 2018">Spring 2018</option>
+                        <option value="Fall 2018">Fall 2018</option>
+                        <option value="Spring 2019">Spring 2019</option>
+                        <option value="Fall 2019">Fall 2019</option>
+                        <option value="Spring 2020">Spring 2020</option>
+                    </select>
+                </td>
+                <td>
+                    <select id="grade2" onchange="">
+                        <option value="A">A</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B">B</option>
+                        <option value="B-">B-</option>
+                        <option value="C+">C+</option>
+                        <option value="C">C</option>
+                        <option value="C-">C-</option>
+                        <option value="D+">D+</option>
+                        <option value="D">D</option>
+                        <option value="D-">D-</option>
+                        <option value="F">F</option>                        
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>CS 2110</td>
+                <td>Software Development Methods</td>
+                <td> <input type="checkbox" id="class3" name="class3"> </td>
+                <td> 
+                    <select id="semester3" onchange="">
+                        <option value="Fall 2017">Fall 2017</option>
+                        <option value="Spring 2018">Spring 2018</option>
+                        <option value="Fall 2018">Fall 2018</option>
+                        <option value="Spring 2019">Spring 2019</option>
+                        <option value="Fall 2019">Fall 2019</option>
+                        <option value="Spring 2020">Spring 2020</option>
+                    </select>
+                </td>
+                <td>
+                    <select id="grade3" onchange="">
+                        <option value="A">A</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B">B</option>
+                        <option value="B-">B-</option>
+                        <option value="C+">C+</option>
+                        <option value="C">C</option>
+                        <option value="C-">C-</option>
+                        <option value="D+">D+</option>
+                        <option value="D">D</option>
+                        <option value="D-">D-</option>
+                        <option value="F">F</option>                        
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>CS 2150</td>
+                <td>Program and Data Representation</td>
+                <td> <input type="checkbox" id="class4" name="class4"> </td>
+                <td> 
+                    <select id="semester4" onchange="">
+                        <option value="Fall 2017">Fall 2017</option>
+                        <option value="Spring 2018">Spring 2018</option>
+                        <option value="Fall 2018">Fall 2018</option>
+                        <option value="Spring 2019">Spring 2019</option>
+                        <option value="Fall 2019">Fall 2019</option>
+                        <option value="Spring 2020">Spring 2020</option>
+                    </select>
+                </td>
+                <td>
+                    <select id="grade4" onchange="">
+                        <option value="A">A</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B">B</option>
+                        <option value="B-">B-</option>
+                        <option value="C+">C+</option>
+                        <option value="C">C</option>
+                        <option value="C-">C-</option>
+                        <option value="D+">D+</option>
+                        <option value="D">D</option>
+                        <option value="D-">D-</option>
+                        <option value="F">F</option>                        
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>CS 3330</td>
+                <td>Computer Architecture</td>
+                <td> <input type="checkbox" id="class5" name="class5"> </td>
+                <td> 
+                    <select id="semester5" onchange="">
+                        <option value="Fall 2017">Fall 2017</option>
+                        <option value="Spring 2018">Spring 2018</option>
+                        <option value="Fall 2018">Fall 2018</option>
+                        <option value="Spring 2019">Spring 2019</option>
+                        <option value="Fall 2019">Fall 2019</option>
+                        <option value="Spring 2020">Spring 2020</option>
+                    </select>
+                </td>
+                <td>
+                    <select id="grade5" onchange="">
+                        <option value="A">A</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B">B</option>
+                        <option value="B-">B-</option>
+                        <option value="C+">C+</option>
+                        <option value="C">C</option>
+                        <option value="C-">C-</option>
+                        <option value="D+">D+</option>
+                        <option value="D">D</option>
+                        <option value="D-">D-</option>
+                        <option value="F">F</option>                        
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>CS 4102</td>
+                <td>Algorithms</td>
+                <td> <input type="checkbox" id="class6" name="class6"> </td>
+                <td> 
+                    <select id="semester6" onchange="">
+                        <option value="Fall 2017">Fall 2017</option>
+                        <option value="Spring 2018">Spring 2018</option>
+                        <option value="Fall 2018">Fall 2018</option>
+                        <option value="Spring 2019">Spring 2019</option>
+                        <option value="Fall 2019">Fall 2019</option>
+                        <option value="Spring 2020">Spring 2020</option>
+                    </select>
+                </td>
+                <td>
+                    <select id="grade6" onchange="">
+                        <option value="A">A</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B">B</option>
+                        <option value="B-">B-</option>
+                        <option value="C+">C+</option>
+                        <option value="C">C</option>
+                        <option value="C-">C-</option>
+                        <option value="D+">D+</option>
+                        <option value="D">D</option>
+                        <option value="D-">D-</option>
+                        <option value="F">F</option>                        
+                    </select>
+                </td>
+            </tr>
+
+            <div>
+                <table style="width:100%" id = "computing">
+                    <colgroup>
+                        <col class="table1">
+                        <col class="table2">
+                        <col class="table3">
+                        <col class="table4">
+                        <col class="table5">
+                      </colgroup>
+                    <tr>
+                        <th>Mnemonic</th>
+                        <th>Class Name</th>
+                        <th>Taken?</th>
+                        <th>Semester</th>
+                        <th>Grade</th>
+                    </tr>
+
+                    <tr>
+                        <td><input type="text" id="computing1" name="computing1" maxlength="9" size="9"></td>
+                        <td><input type="text" id="n_computing1" name="n_computing1" size="50"></td>
+                        <td> <input type="checkbox" id="c_computing1" name="c_computing1"> </td>
+                        <td> 
+                            <select id="c_semester1" onchange="">
+                                <option value="Fall 2017">Fall 2017</option>
+                                <option value="Spring 2018">Spring 2018</option>
+                                <option value="Fall 2018">Fall 2018</option>
+                                <option value="Spring 2019">Spring 2019</option>
+                                <option value="Fall 2019">Fall 2019</option>
+                                <option value="Spring 2020">Spring 2020</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select id="c_grade1" onchange="">
+                                <option value="A">A</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B">B</option>
+                                <option value="B-">B-</option>
+                                <option value="C+">C+</option>
+                                <option value="C">C</option>
+                                <option value="C-">C-</option>
+                                <option value="D+">D+</option>
+                                <option value="D">D</option>
+                                <option value="D-">D-</option>
+                                <option value="F">F</option>                        
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><input type="text" id="computing2" name="computing2" maxlength="9" size="9"></td>
+                        <td><input type="text" id="n_computing2" name="n_computing2" size="50"></td>
+                        <td> <input type="checkbox" id="c_computing2" name="c_computing2"> </td>
+                        <td> 
+                            <select id="c_semester2" onchange="">
+                                <option value="Fall 2017">Fall 2017</option>
+                                <option value="Spring 2018">Spring 2018</option>
+                                <option value="Fall 2018">Fall 2018</option>
+                                <option value="Spring 2019">Spring 2019</option>
+                                <option value="Fall 2019">Fall 2019</option>
+                                <option value="Spring 2020">Spring 2020</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select id="c_grade2" onchange="">
+                                <option value="A">A</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B">B</option>
+                                <option value="B-">B-</option>
+                                <option value="C+">C+</option>
+                                <option value="C">C</option>
+                                <option value="C-">C-</option>
+                                <option value="D+">D+</option>
+                                <option value="D">D</option>
+                                <option value="D-">D-</option>
+                                <option value="F">F</option>                        
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><input type="text" id="computing3" name="computing3" maxlength="9" size="9"></td>
+                        <td><input type="text" id="n_computing3" name="n_computing3" size="50"></td>
+                        <td> <input type="checkbox" id="c_computing3" name="c_computing3"> </td>
+                        <td> 
+                            <select id="c_semester3" onchange="">
+                                <option value="Fall 2017">Fall 2017</option>
+                                <option value="Spring 2018">Spring 2018</option>
+                                <option value="Fall 2018">Fall 2018</option>
+                                <option value="Spring 2019">Spring 2019</option>
+                                <option value="Fall 2019">Fall 2019</option>
+                                <option value="Spring 2020">Spring 2020</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select id="c_grade3" onchange="">
+                                <option value="A">A</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B">B</option>
+                                <option value="B-">B-</option>
+                                <option value="C+">C+</option>
+                                <option value="C">C</option>
+                                <option value="C-">C-</option>
+                                <option value="D+">D+</option>
+                                <option value="D">D</option>
+                                <option value="D-">D-</option>
+                                <option value="F">F</option>                        
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><input type="text" id="computing4" name="computing4" maxlength="9" size="9"></td>
+                        <td><input type="text" id="n_computing4" name="n_computing4" size="50"></td>
+                        <td> <input type="checkbox" id="c_computing4" name="c_computing4"> </td>
+                        <td> 
+                            <select id="c_semester4" onchange="">
+                                <option value="Fall 2017">Fall 2017</option>
+                                <option value="Spring 2018">Spring 2018</option>
+                                <option value="Fall 2018">Fall 2018</option>
+                                <option value="Spring 2019">Spring 2019</option>
+                                <option value="Fall 2019">Fall 2019</option>
+                                <option value="Spring 2020">Spring 2020</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select id="c_grade4" onchange="">
+                                <option value="A">A</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B">B</option>
+                                <option value="B-">B-</option>
+                                <option value="C+">C+</option>
+                                <option value="C">C</option>
+                                <option value="C-">C-</option>
+                                <option value="D+">D+</option>
+                                <option value="D">D</option>
+                                <option value="D-">D-</option>
+                                <option value="F">F</option>                        
+                            </select>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+
+            <div>
+                <table style="width:100%" id = "integration">
+                    <colgroup>
+                        <col class="table1">
+                        <col class="table2">
+                        <col class="table3">
+                        <col class="table4">
+                        <col class="table5">
+                      </colgroup>
+                    <tr>
+                        <th>Mnemonic</th>
+                        <th>Class Name</th>
+                        <th>Taken?</th>
+                        <th>Semester</th>
+                        <th>Grade</th>
+                    </tr>
+
+                    <tr>
+                        <td><input type="text" id="integration1" name="integration1" maxlength="9" size="9"></td>
+                        <td><input type="text" id="n_integration1" name="n_integration1" size="50"></td>
+                        <td> <input type="checkbox" id="c_integration1" name="c_integration1"> </td>
+                        <td> 
+                            <select id="i_semester1" onchange="">
+                                <option value="Fall 2017">Fall 2017</option>
+                                <option value="Spring 2018">Spring 2018</option>
+                                <option value="Fall 2018">Fall 2018</option>
+                                <option value="Spring 2019">Spring 2019</option>
+                                <option value="Fall 2019">Fall 2019</option>
+                                <option value="Spring 2020">Spring 2020</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select id="i_grade1" onchange="">
+                                <option value="A">A</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B">B</option>
+                                <option value="B-">B-</option>
+                                <option value="C+">C+</option>
+                                <option value="C">C</option>
+                                <option value="C-">C-</option>
+                                <option value="D+">D+</option>
+                                <option value="D">D</option>
+                                <option value="D-">D-</option>
+                                <option value="F">F</option>                        
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><input type="text" id="integration2" name="integration2" maxlength="9" size="9"></td>
+                        <td><input type="text" id="n_integration2" name="n_integration2" size="50"></td>
+                        <td> <input type="checkbox" id="c_integration2" name="c_integration2"> </td>
+                        <td> 
+                            <select id="i_semester2" onchange="">
+                                <option value="Fall 2017">Fall 2017</option>
+                                <option value="Spring 2018">Spring 2018</option>
+                                <option value="Fall 2018">Fall 2018</option>
+                                <option value="Spring 2019">Spring 2019</option>
+                                <option value="Fall 2019">Fall 2019</option>
+                                <option value="Spring 2020">Spring 2020</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select id="i_grade2" onchange="">
+                                <option value="A">A</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B">B</option>
+                                <option value="B-">B-</option>
+                                <option value="C+">C+</option>
+                                <option value="C">C</option>
+                                <option value="C-">C-</option>
+                                <option value="D+">D+</option>
+                                <option value="D">D</option>
+                                <option value="D-">D-</option>
+                                <option value="F">F</option>                        
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><input type="text" id="integration3" name="integration3" maxlength="9" size="9"></td>
+                        <td><input type="text" id="n_integration3" name="n_integration3" size="50"></td>
+                        <td> <input type="checkbox" id="c_integration3" name="c_integration3"> </td>
+                        <td> 
+                            <select id="i_semester3" onchange="">
+                                <option value="Fall 2017">Fall 2017</option>
+                                <option value="Spring 2018">Spring 2018</option>
+                                <option value="Fall 2018">Fall 2018</option>
+                                <option value="Spring 2019">Spring 2019</option>
+                                <option value="Fall 2019">Fall 2019</option>
+                                <option value="Spring 2020">Spring 2020</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select id="i_grade3" onchange="">
+                                <option value="A">A</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B">B</option>
+                                <option value="B-">B-</option>
+                                <option value="C+">C+</option>
+                                <option value="C">C</option>
+                                <option value="C-">C-</option>
+                                <option value="D+">D+</option>
+                                <option value="D">D</option>
+                                <option value="D-">D-</option>
+                                <option value="F">F</option>                        
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><input type="text" id="integration4" name="integration4" maxlength="9" size="9"></td>
+                        <td><input type="text" id="n_integration4" name="n_integration4" size="50"></td>
+                        <td><input type="checkbox" id="c_integration4" name="c_integration4"> </td>
+                        <td> 
+                            <select id="i_semester4" onchange="">
+                                <option value="Fall 2017">Fall 2017</option>
+                                <option value="Spring 2018">Spring 2018</option>
+                                <option value="Fall 2018">Fall 2018</option>
+                                <option value="Spring 2019">Spring 2019</option>
+                                <option value="Fall 2019">Fall 2019</option>
+                                <option value="Spring 2020">Spring 2020</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select id="i_grade4" onchange="">
+                                <option value="A">A</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B">B</option>
+                                <option value="B-">B-</option>
+                                <option value="C+">C+</option>
+                                <option value="C">C</option>
+                                <option value="C-">C-</option>
+                                <option value="D+">D+</option>
+                                <option value="D">D</option>
+                                <option value="D-">D-</option>
+                                <option value="F">F</option>                        
+                            </select>
+                        </td>
+                    </tr>                   
+
+                </table>
+            </div>
+
+            
+
+            
+
+        
+        </table>
+
+        <script>
+            (function() {
+                document.getElementById("computing").style.display = "none";
+                document.getElementById("integration").style.display = "none";
+                document.getElementById("general").style.display = "table";
+            }());
+
+            function changeTable(){
+                var page = document.getElementById("Choice").value;
+                if (page == "1") {
+                    document.getElementById("computing").style.display = "none";
+                    document.getElementById("integration").style.display = "none";
+                    document.getElementById("general").style.display = "table";
+                }
+                else if (page == "2") {
+                    document.getElementById("integration").style.display = "none";
+                    document.getElementById("general").style.display = "none";
+                    document.getElementById("computing").style.display = "table";
+                }
+                else {
+                    document.getElementById("computing").style.display = "none";                    
+                    document.getElementById("general").style.display = "none";
+                    document.getElementById("integration").style.display = "table";
+                }
+                  
+            }
+            var choice = document.getElementById("Choice");
+            choice.addEventListener('change', changeTable, false);
+        </script>
+
+    </div>
+
+    
     
 </html>
+
