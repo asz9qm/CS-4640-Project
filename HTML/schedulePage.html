@@ -1,4 +1,302 @@
 <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Schedule Page</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" /> 
+        <style>
+            .Sameline { 
+             display: inline-block;  
+             padding:2px;
+             margin:5px;
+             }
+             .btn-circle {
+            width: 30px;
+            height: 30px;
+            padding: 6px 0px;
+            border-radius: 15px;
+            border-color: black;
+            text-align: center;
+            font-size: 12px;
+            line-height: 1.42857;
+            }
+            #template {
+            display: none;
+            }
 
+            .col {
+            display: inline-block;
+            border: 1px solid gray;
+            padding: 4px 8px;
+            }
+           </style>
+    </head>
+
+<body>
+    <div class="container-fluid">
+        <div id = "row" class = "row">
+            <!--Semester 1-->
+            <div class="column">
+                <h1>Fall 2017</h1>
+                    <table id="semester1table" class="table" >
+                        <thead>
+                            <tr>
+                                <th>Class Name</th>
+                                <th>(-)</th>
+                            </tr>
+                        </thead>
+                    </table>
+                    <div class="Sameline">
+                        <div class="form-group">
+                        <input type="text" id="addclass1" class="form-control" name="desc" />
+                        <span class="error" id="addclass1-note"></span>  
+                        </div>
+                    </div> 
+                    <div class="Sameline">
+                        <button id="semester1add" type="button" class="btn btn-default btn-circle" onclick="addRow('addclass1', 'semester1table')">+<i class="fa fa-check"></i>     
+                    </div>
+            </div>
+            <!--Semester 2-->
+            <div class="column">
+                <h1>Spring 2018</h1>
+                    <table id="semester2table" class="table" >
+                        <thead>
+                            <tr>
+                                <th>Class Name</th>
+                                <th>(-)</th>
+                            </tr>
+                        </thead>
+                    </table>
+                    <div class="Sameline">
+                        <div class="form-group">
+                        <input type="text" id="addclass2" class="form-control" name="desc" />
+                        <span class="error" id="addclass2-note"></span>  
+                        </div>
+                    </div> 
+                    <div class="Sameline">
+                        <button id="semester2add" type="button" class="btn btn-default btn-circle" onclick="addRow('addclass2', 'semester2table')">+<i class="fa fa-check"></i>     
+                    </div>
+            </div>
+            <!--Semester 3-->
+            <div class="column">
+                <h1>Fall 2018</h1>
+                    <table id="semester3table" class="table" >
+                        <thead>
+                            <tr>
+                                <th>Class Name</th>
+                                <th>(-)</th>
+                            </tr>
+                        </thead>
+                    </table>
+                    <div class="Sameline">
+                        <div class="form-group">
+                        <input type="text" id="addclass3" class="form-control" name="desc" />
+                        <span class="error" id="addclass3-note"></span>  
+                        </div>
+                    </div> 
+                    <div class="Sameline">
+                        <button id="semester3add" type="button" class="btn btn-default btn-circle" onclick="addRow('addclass3', 'semester3table')">+<i class="fa fa-check"></i>     
+                    </div>
+            </div>
+            <!--Semester 4-->
+            <div class="column">
+                <h1>Spring 2019</h1>
+                    <table id="semester4table" class="table" >
+                        <thead>
+                            <tr>
+                                <th>Class Name</th>
+                                <th>(-)</th>
+                            </tr>
+                        </thead>
+                    </table>
+                    <div class="Sameline">
+                        <div class="form-group">
+                        <input type="text" id="addclass4" class="form-control" name="desc" />
+                        <span class="error" id="addclass4-note"></span>  
+                        </div>
+                    </div> 
+                    <div class="Sameline">
+                        <button id="semester4add" type="button" class="btn btn-default btn-circle" onclick="addRow('addclass4', 'semester4table')">+<i class="fa fa-check"></i>     
+                    </div>
+            </div>
+            <!--Semester 5-->
+            <div class="column">
+                <h1>Fall 2019</h1>
+                    <table id="semester5table" class="table" >
+                        <thead>
+                            <tr>
+                                <th>Class Name</th>
+                                <th>(-)</th>
+                            </tr>
+                        </thead>
+                    </table>
+                    <div class="Sameline">
+                        <div class="form-group">
+                        <input type="text" id="addclass5" class="form-control" name="desc" />
+                        <span class="error" id="addclass5-note"></span>  
+                        </div>
+                    </div> 
+                    <div class="Sameline">
+                        <button id="semester5add" type="button" class="btn btn-default btn-circle" onclick="addRow('addclass5', 'semester5table')">+<i class="fa fa-check"></i>     
+                    </div>
+            </div>
+            <!--Semester 6-->
+            <div class="column">
+                <h1>Spring 2020</h1>
+                    <table id="semester6table" class="table" >
+                        <thead>
+                            <tr>
+                                <th>Class Name</th>
+                                <th>(-)</th>
+                            </tr>
+                        </thead>
+                    </table>
+                    <div class="Sameline">
+                        <div class="form-group">
+                        <input type="text" id="addclass6" class="form-control" name="desc" />
+                        <span class="error" id="addclass6-note"></span>  
+                        </div>
+                    </div> 
+                    <div class="Sameline">
+                        <button id="semester6add" type="button" class="btn btn-default btn-circle" onclick="addRow('addclass6', 'semester6table')">+<i class="fa fa-check"></i>     
+                    </div>
+            </div>
+            <!--Semester 7-->
+            <div class="column">
+                <h1>Fall 2020</h1>
+                    <table id="semester7table" class="table" >
+                        <thead>
+                            <tr>
+                                <th>Class Name</th>
+                                <th>(-)</th>
+                            </tr>
+                        </thead>
+                    </table>
+                    <div class="Sameline">
+                        <div class="form-group">
+                        <input type="text" id="addclass7" class="form-control" name="desc" />
+                        <span class="error" id="addclass7-note"></span>  
+                        </div>
+                    </div> 
+                    <div class="Sameline">
+                        <button id="semester7add" type="button" class="btn btn-default btn-circle" onclick="addRow('addclass7', 'semester7table')">+<i class="fa fa-check"></i>     
+                    </div>
+            </div>
+            <!--Semester 8-->
+            <div class="column">
+                <h1>Spring 2021</h1>
+                    <table id="semester8table" class="table" >
+                        <thead>
+                            <tr>
+                                <th>Class Name</th>
+                                <th>(-)</th>
+                            </tr>
+                        </thead>
+                    </table>
+                    <div class="Sameline">
+                        <div class="form-group">
+                        <input type="text" id="addclass8" class="form-control" name="desc" />
+                        <span class="error" id="addclass8-note"></span>  
+                        </div>
+                    </div> 
+                    <div class="Sameline">
+                        <button id="semester8add" type="button" class="btn btn-default btn-circle" onclick="addRow('addclass8', 'semester8table')">+<i class="fa fa-check"></i>     
+                    </div>
+            </div>
+
+        </div>
+            
+            <div class="column">
+                <div class = "Sameline">
+                    <p>Add a semester</p>
+                </div>
+                <div class="Sameline">
+                    <button id="addSemesterCol" type="button" class="btn btn-default btn-circle" onclick="addSemester()">+<i class="fa fa-check"></i>     
+                </div>
+            </div>
+
+            <div id="template">
+                <div class="column">
+                    <div class="Sameline">
+                        <h1>New Semester</h1>
+                    </div>
+                    <div class="Sameline">
+                        <button class="remove" onclick="removeDiv(this);">X</button>
+                    </div>
+                        <table id="semester9table" class="table" >
+                            <thead>
+                                <tr>
+                                    <th>Class Name</th>
+                                    <th>(-)</th>
+                                </tr>
+                            </thead>
+                        </table>
+                        <div class="Sameline">
+                            <div class="form-group">
+                            <input type="text" id="addclass9" class="form-control" name="desc" />
+                            <span class="error" id="addclass9-note"></span>  
+                            </div>
+                        </div> 
+                        <div class="Sameline">
+                            <button id="semester8add" type="button" class="btn btn-default btn-circle" onclick="addRow('addclass9', 'semester9table')">+<i class="fa fa-check"></i>     
+                        </div>
+                </div>
+        </div> 
+    </div>
+
+
+
+<script>
+    function addRow(addsemester, addtable)
+    {
+        var className = document.getElementById(addsemester).value;
+        if (className != ""){
+            var table = document.getElementById(addtable);
+            var newRow = table.insertRow(table.rows.length);
+            document.getElementById(addsemester).value = "";
+
+            var col2 = `<input type=button class='btn btn-default btn-circle' value=' - ' onClick='delRow("${addtable}")'>`; 
+            console.log(col2);
+            var rowdata = [className, col2];
+            
+            var tableRef = document.getElementById(addtable);
+            var newRow = tableRef.insertRow(tableRef.rows.length);
+            newRow.onmouseover = function() {         
+                tableRef.clickedRowIndex = this.rowIndex;   // rowIndex returns the position of a row in the rows collection of a table     
+            };
+            var newCell = "";       
+            var i = 0;          // In this example, each row has 4 columns. 
+            // Use insertCell(index) method to insert new cells (<td> elements) at the 1st, 2nd, 3rd position of the new <tr> element        	      
+            while (i < 2)
+            {
+                newCell = newRow.insertCell(i);            // specify which column 
+                newCell.innerHTML = rowdata[i];            // assign what content  
+                newCell.onmouseover = this.rowIndex;       // attach row index to the row
+                i++;
+            }
+        }
+    }
+    
+    function delRow(removeTable)
+    {
+        document.getElementById(removeTable).deleteRow(document.getElementById(removeTable).clickedRowIndex);
+    }
+    
+    function addSemester()
+    {
+        var templateCol = document.querySelector('#template').innerHTML;
+        var rowContainer = document.querySelector("#row");
+        rowContainer.innerHTML = rowContainer.innerHTML + templateCol;
+        
+    }
+
+    function removeDiv(btn){
+            ((btn.parentNode).parentNode.parentNode).removeChild(btn.parentNode.parentNode);
+    }
+
+    </script>
+</script>
+
+
+</body>
 
 </html>
