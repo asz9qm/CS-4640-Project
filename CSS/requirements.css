@@ -24,4 +24,73 @@
     width: 6%;
 }
 
+@media only screen and (max-width: 720px) {
+    #general tr> *:nth-child(2) {
+        display: none;
+    }
+
+    .table1{
+        width: 40%;
+    }
+    
+    .table2{
+        width: 6%;
+        
+    }
+    
+    .table3{
+        width: 30%;
+    }
+    
+    .table4{
+        width: 24%;
+    }
+}
+
+@media only screen and (max-width: 720px) {
+    #integration tr> *:nth-child(2) {
+        display: none;
+    }
+
+    .table1{
+        width: 40%;
+    }
+    
+    .table2{
+        width: 6%;
+        
+    }
+    
+    .table3{
+        width: 30%;
+    }
+    
+    .table4{
+        width: 24%;
+    }
+}
+
+@media only screen and (max-width: 720px) {
+    #computing tr> *:nth-child(2) {
+        display: none;
+    }
+
+    .table1{
+        width: 40%;
+    }
+    
+    .table2{
+        width: 6%;
+        
+    }
+    
+    .table3{
+        width: 30%;
+    }
+    
+    .table4{
+        width: 24%;
+    }
+}
+
 

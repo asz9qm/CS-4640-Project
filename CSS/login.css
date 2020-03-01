@@ -1,0 +1,26 @@
+.card {
+    text-align: center;
+    display: inline-block;
+    /* margin-left: 400px;
+    margin-top:200px; */
+ }
+
+.btn-lg {
+   width:85%;
+}
+
+/* .card-text-login {
+    margin-left: 50px;
+} */
+
+.logout {
+    text-transform: lowercase;
+}
+
+.container-fluid{
+    padding: 5 40 5 40px;
+}
+
+.column {
+    padding: 5 20 5 20px
+}

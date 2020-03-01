@@ -5,8 +5,11 @@
         <meta charset="utf-8">
         <meta name="author" content="Alan Zhai">
         <meta name="description" content="Requirements">
-        <link rel="stylesheet" href="../CSS/requirements.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="../CSS/requirements.css">
+        <link rel="stylesheet" href="../CSS/main.css">
+
+        
     </head>
     
     <div>
@@ -17,7 +20,8 @@
         <option value="3">Integration Electives</option>
         </select>
     </div>
-    <br>
+    
+    
     <div class="table-responsive">
         <table class="table table-striped table-bordered" style="width:100%" id = "general">
             <colgroup>
@@ -531,11 +535,12 @@
         </table>
 
         <script>
-            (function() {
+            var anonfunc = function() {
                 document.getElementById("computing").style.display = "none";
                 document.getElementById("integration").style.display = "none";
                 document.getElementById("general").style.display = "table";
-            }());
+            }();
+            
 
             function changeTable(){
                 var page = document.getElementById("Choice").value;

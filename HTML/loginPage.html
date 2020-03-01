@@ -1,3 +1,102 @@
 <html>
+    <head>
+    <!-- <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="763652494101-tlmv0rv7an6bj872o37gkip2q9ho5fhp.apps.googleusercontent.com">
+    <link rel="stylesheet" href="../CSS/login.css">
+    <script src="https://apis.google.com/js/platform.js" async defer></script> -->
+    <title>Login Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="../CSS/login.css">
+    </head>
+    <div class="container-fluid">
+        <div class = "row">
+            <div class="col-md-4">
+                <h3>
+                    Login
+                </h3>
+                <form>
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Email address</label>
+                      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                      <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Password</label>
+                      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </form>
+            </div>
+
+            <div class="col-md-4">
+                <h3>
+                    Sign Up
+                </h3>
+                <form>
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Email address</label>
+                      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Password</label>
+                      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    </div>
+                    <div class ="form-group">
+                        <label for="year">School Year</label>
+                        <input type="text" class = "form-control" id="year" placeholder="Enter your year">
+                    </div>
+                    <div class ="form-group">
+                        <label for="Major">Enter your    Major</label>
+                        <input type="text" class = "form-control" id="major" placeholder="Enter your major">
+                    </div>
+
+                    
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </form>
+            </div>
+
+            <div class="col-md-4">
+                <h3>
+                    Google Login
+                </h3>
+                <form> 
+                                      
+                    <button type="submit" class="btn btn-primary">Login with Google</button>
+                  </form>
+            </div>
+        </div>
+
+    </div>
     
+  <!-- <body>
+    <div>
+        <p class="card-text-login" style="text-align:center;">Google Login</p>
+        <a href="" class="btn btn-danger btn-lg"><i class="fab fa-google"></i>   Continue</a>
+    </div>
+    
+
+    <script>
+      function onSignIn(googleUser) {
+        // Useful data for your client-side scripts:
+        var profile = googleUser.getBasicProfile();
+        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+        console.log('Full Name: ' + profile.getName());
+        console.log('Given Name: ' + profile.getGivenName());
+        console.log('Family Name: ' + profile.getFamilyName());
+        console.log("Image URL: " + profile.getImageUrl());
+        console.log("Email: " + profile.getEmail());
+
+        // The ID token you need to pass to your backend:
+        var id_token = googleUser.getAuthResponse().id_token;
+        console.log("ID Token: " + id_token);
+      }
+    </script>
+  </body> -->
 </html>
