@@ -246,7 +246,7 @@
 
 
 <script>
-    function addRow(addsemester, addtable)
+    addRow = (addsemester, addtable) =>
     {
         var className = document.getElementById(addsemester).value;
         if (className != ""){
@@ -276,7 +276,7 @@
         }
     }
     
-    function delRow(removeTable)
+    delRow = removeTable =>
     {
         document.getElementById(removeTable).deleteRow(document.getElementById(removeTable).clickedRowIndex);
     }
@@ -289,7 +289,8 @@
         
     }
 
-    function removeDiv(btn){
+    removeDiv = btn =>
+    {
             ((btn.parentNode).parentNode.parentNode).removeChild(btn.parentNode.parentNode);
     }
 
