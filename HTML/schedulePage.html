@@ -76,7 +76,7 @@
                         </div>
                     </div> 
                     <div class="Sameline">
-                        <button id="semester1add" type="button" class="btn btn-default btn-circle" onclick="addRow('addclass1', 'semester1table')">+<i class="fa fa-check"></i>     
+                        <button id="semester1add" type="button" class="btn btn-default btn-circle" onclick="addRow('addclass1', 'semester1table', 'addclass1-note')">+<i class="fa fa-check"></i>     
                     </div>
             </div>
             
@@ -98,7 +98,7 @@
                         </div>
                     </div> 
                     <div class="Sameline">
-                        <button id="semester2add" type="button" class="btn btn-default btn-circle" onclick="addRow('addclass2', 'semester2table')">+<i class="fa fa-check"></i>     
+                        <button id="semester2add" type="button" class="btn btn-default btn-circle" onclick="addRow('addclass2', 'semester2table', 'addclass2-note')">+<i class="fa fa-check"></i>     
                     </div>
             </div>
 
@@ -120,7 +120,7 @@
                         </div>
                     </div> 
                     <div class="Sameline">
-                        <button id="semester3add" type="button" class="btn btn-default btn-circle" onclick="addRow('addclass3', 'semester3table')">+<i class="fa fa-check"></i>     
+                        <button id="semester3add" type="button" class="btn btn-default btn-circle" onclick="addRow('addclass3', 'semester3table', 'addclass3-note')">+<i class="fa fa-check"></i>     
                     </div>
             </div>
 
@@ -142,7 +142,7 @@
                         </div>
                     </div> 
                     <div class="Sameline">
-                        <button id="semester4add" type="button" class="btn btn-default btn-circle" onclick="addRow('addclass4', 'semester4table')">+<i class="fa fa-check"></i>     
+                        <button id="semester4add" type="button" class="btn btn-default btn-circle" onclick="addRow('addclass4', 'semester4table', 'addclass4-note')">+<i class="fa fa-check"></i>     
                     </div>
             </div>
 
@@ -164,7 +164,7 @@
                         </div>
                     </div> 
                     <div class="Sameline">
-                        <button id="semester5add" type="button" class="btn btn-default btn-circle" onclick="addRow('addclass5', 'semester5table')">+<i class="fa fa-check"></i>     
+                        <button id="semester5add" type="button" class="btn btn-default btn-circle" onclick="addRow('addclass5', 'semester5table', 'addclass5-note')">+<i class="fa fa-check"></i>     
                     </div>
             </div>
 
@@ -186,7 +186,7 @@
                         </div>
                     </div> 
                     <div class="Sameline">
-                        <button id="semester6add" type="button" class="btn btn-default btn-circle" onclick="addRow('addclass6', 'semester6table')">+<i class="fa fa-check"></i>     
+                        <button id="semester6add" type="button" class="btn btn-default btn-circle" onclick="addRow('addclass6', 'semester6table', 'addclass7-note')">+<i class="fa fa-check"></i>     
                     </div>
             </div>
 
@@ -208,7 +208,7 @@
                         </div>
                     </div> 
                     <div class="Sameline">
-                        <button id="semester7add" type="button" class="btn btn-default btn-circle" onclick="addRow('addclass7', 'semester7table')">+<i class="fa fa-check"></i>     
+                        <button id="semester7add" type="button" class="btn btn-default btn-circle" onclick="addRow('addclass7', 'semester7table', 'addclass8-note')">+<i class="fa fa-check"></i>     
                     </div>
             </div>
 
@@ -230,7 +230,7 @@
                         </div>
                     </div> 
                     <div class="Sameline">
-                        <button id="semester8add" type="button" class="btn btn-default btn-circle" onclick="addRow('addclass8', 'semester8table')">+<i class="fa fa-check"></i>     
+                        <button id="semester8add" type="button" class="btn btn-default btn-circle" onclick="addRow('addclass8', 'semester8table', 'addclass8-note')">+<i class="fa fa-check"></i>     
                     </div>
             </div>
 
@@ -270,12 +270,14 @@
 
 <script>
 
-    addRow = (addsemester, addtable) =>
+    addRow = (addsemester, addtable, addClassNote) =>
     {
         // Adds a row to the semester 
-        //STUB: Need to do data validation on class mnemonic  and add credits to table
         var className = document.getElementById(addsemester).value;
-        if (className != ""){
+        var re_pattern = "([A-Za-z]{2,4}) ([0-9]+)";
+        var result = className.match(re_pattern);
+
+        if (className != null && result[1].length >= 2 && result[2].length <= 4 && result[2].length == 4){
             var table = document.getElementById(addtable);
             var newRow = table.insertRow(table.rows.length);
             document.getElementById(addsemester).value = "";
@@ -299,6 +301,10 @@
                 i++;
             }
         }
+        else {
+            //alert
+            document.getElementById(addClassNote).textContent = "Please enter correct mnemonic";
+        }
     }
     
     delRow = removeTable =>
@@ -318,7 +324,7 @@
         "<thead> <tr> <th>Class Name</th> <th>(-)</th> </tr> </thead> </table>"+
         "<div class='Sameline'> <div class='form-group'> <input type='text' id='addclass"+semesterNum+"' class='form-control' name='desc' />"+
         "<span class='error' id='addclass"+semesterNum+"-note'></span> </div> </div> " +
-        "<div class='Sameline'> <button id='semester"+semesterNum+"add' type='button' class='btn btn-default btn-circle' onclick='addRow(\"addclass"+semesterNum+"\", \"semester"+semesterNum+"table\")'>+<i class='fa fa-check'></i>"+     
+        "<div class='Sameline'> <button id='semester"+semesterNum+"add' type='button' class='btn btn-default btn-circle' onclick='addRow(\"addclass"+semesterNum+"\", \"semester"+semesterNum+"table\", \"addclass"+semesterNum+"-note\")'>+<i class='fa fa-check'></i>"+     
         "</div> </div>";
         rowContainer.innerHTML = rowContainer.innerHTML + templateCol;
         
