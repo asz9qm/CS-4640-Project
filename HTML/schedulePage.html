@@ -68,7 +68,7 @@
                         <thead>
                             <tr>
                                 <th>Class Name</th>
-                                <th>(-)</th>
+                                <th>(x)</th>
                             </tr>
                         </thead>
                     </table>
@@ -92,7 +92,7 @@
                         <thead>
                             <tr>
                                 <th>Class Name</th>
-                                <th>(-)</th>
+                                <th>(x)</th>
                             </tr>
                         </thead>
                     </table>
@@ -115,7 +115,7 @@
                         <thead>
                             <tr>
                                 <th>Class Name</th>
-                                <th>(-)</th>
+                                <th>(x)</th>
                             </tr>
                         </thead>
                     </table>
@@ -138,7 +138,7 @@
                         <thead>
                             <tr>
                                 <th>Class Name</th>
-                                <th>(-)</th>
+                                <th>(x)</th>
                             </tr>
                         </thead>
                     </table>
@@ -161,7 +161,7 @@
                         <thead>
                             <tr>
                                 <th>Class Name</th>
-                                <th>(-)</th>
+                                <th>(x)</th>
                             </tr>
                         </thead>
                     </table>
@@ -184,7 +184,7 @@
                         <thead>
                             <tr>
                                 <th>Class Name</th>
-                                <th>(-)</th>
+                                <th>(x)</th>
                             </tr>
                         </thead>
                     </table>
@@ -207,7 +207,7 @@
                         <thead>
                             <tr>
                                 <th>Class Name</th>
-                                <th>(-)</th>
+                                <th>(x)</th>
                             </tr>
                         </thead>
                     </table>
@@ -230,7 +230,7 @@
                         <thead>
                             <tr>
                                 <th>Class Name</th>
-                                <th>(-)</th>
+                                <th>(x)</th>
                             </tr>
                         </thead>
                     </table>
@@ -290,7 +290,7 @@
             var newRow = table.insertRow(table.rows.length);
             document.getElementById(addsemester).value = "";
 
-            var col2 = `<input type=button class='btn btn-default btn-circle' value=' - ' onClick='delRow("${addtable}")'>`;
+            var col2 = `<input type=button class='btn btn-default btn-circle' value=' x ' onClick='delRow("${addtable}")'>`;
             var rowdata = [className, col2];
             
             var tableRef = document.getElementById(addtable);
@@ -330,7 +330,7 @@
         "<div class='column'> <div class='Sameline'><h1>Semester"+semesterNum+"</h1></div>"+
         "<div class='Sameline'> <button id='removeSemester' type='button' class='btn btn-default btn-circle' " +
         "onclick=\"removeDiv(this)\">-<i class='fa fa-check'></i> </div> <table id='semester"+semesterNum+"table' class='table'>"+            
-        "<thead> <tr> <th>Class Name</th> <th>(-)</th> </tr> </thead> </table>"+
+        "<thead> <tr> <th>Class Name</th> <th>(x)</th> </tr> </thead> </table>"+
         "<div class='Sameline'> <div class='form-group'> <input type='text' id='addclass"+semesterNum+"' class='form-control' name='desc' />"+
         " </div> </div> <div class='Sameline'> <button id='semester"+semesterNum+"add' type='button' class='btn btn-default btn-circle' "+
         "onclick='addRow(\"addclass"+semesterNum+"\", \"semester"+semesterNum+"table\", \"addclass"+semesterNum+"-note\")'>+<i class='fa fa-check'></i> </div>"+     
