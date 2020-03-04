@@ -1,3 +1,11 @@
 div {
   padding: 5 20 5 20px;
 }
+
+a:hover {
+  background-color: lightblue;
+}
+
+a:visited {
+  color: darkcyan;
+}
