@@ -1,14 +1,19 @@
 <html>
     <head>
+    <!-- tried to google login but that isn't working right now -->
     <!-- <meta name="google-signin-scope" content="profile email">
     <meta name="google-signin-client_id" content="763652494101-tlmv0rv7an6bj872o37gkip2q9ho5fhp.apps.googleusercontent.com">
     <link rel="stylesheet" href="../CSS/login.css">
     <script src="https://apis.google.com/js/platform.js" async defer></script> -->
     <title>Login Page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="author" content="Alan Zhai, Jennifer Liao">
+    <meta name="description" content="Login Page">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="../CSS/login.css">
     <link rel="stylesheet" href="../CSS/main.css">
+
     <!-- Need the following three lines in order for nav bar to work: https://stackoverflow.com/questions/45756307/bootstrap-4-toggle-button-not-working/45756365 -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
@@ -37,17 +42,22 @@
       </div>
    </nav>
     
+   <!-- the container for all of the components of the login bar -->
+   <!-- Going to add more form verification once we switch to angular -->
     <div class="container-fluid">
         <div class = "row">
+          <!-- one of the columns in the container -->
+          <!-- the main login column -->
             <div class="col-md-4">
                 <h3>
                     Login
                 </h3>
+                <!-- a form -->
                 <form>
                     <div class="form-group">
                       <label for="exampleInputEmail1">Email address</label>
                       <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                      <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                      
                     </div>
                     <div class="form-group">
                       <label for="exampleInputPassword1">Password</label>
@@ -57,7 +67,7 @@
                     <button type="submit" class="btn btn-primary">Submit</button>
                   </form>
             </div>
-
+            <!-- the sign up column -->
             <div class="col-md-4">
                 <h3>
                     Sign Up
@@ -68,6 +78,7 @@
                       <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
                       <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                     </div>
+                    <!-- going to change this to a hash once we learn more about PHP -->
                     <div class="form-group">
                       <label for="exampleInputPassword1">Password</label>
                       <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
@@ -81,7 +92,7 @@
                         <input type="text" class = "form-control" id="year" placeholder="Enter your year">
                     </div>
                     <div class ="form-group">
-                        <label for="Major">Enter your    Major</label>
+                        <label for="Major">Enter your Major</label>
                         <input type="text" class = "form-control" id="major" placeholder="Enter your major">
                     </div>
 
@@ -121,7 +132,7 @@
    </nav>
 
   </div>
-    
+    <!-- Google Login Stuff -->
   <!-- <body>
     <div>
         <p class="card-text-login" style="text-align:center;">Google Login</p>

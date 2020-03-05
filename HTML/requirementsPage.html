@@ -3,11 +3,12 @@
         <title>Requirements Page</title>
         <meta name="viewport" content="initial-scale=1.0">
         <meta charset="utf-8">
-        <meta name="author" content="Alan Zhai">
+        <meta name="author" content="Alan Zhai, Jennifer Liao">
         <meta name="description" content="Requirements">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="../CSS/requirements.css">
         <link rel="stylesheet" href="../CSS/main.css">
+
         <!-- Need the following three lines in order for nav bar to work: https://stackoverflow.com/questions/45756307/bootstrap-4-toggle-button-not-working/45756365 -->
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
@@ -37,6 +38,7 @@
      </nav>
 
     <div>
+        <!-- Dropdown to allow switching between different types of Requirements -->
         <label for="dropdown">Requirement Type:</label>
         <select id="Choice">
         <option value="1">General Requirements</option>
@@ -45,9 +47,11 @@
         </select>
     </div>
     
-    
+    <!-- Table for the classes -->
     <div class="table-responsive">
+        <!-- Make it striped -->
         <table class="table table-striped table-bordered" style="width:100%" id = "general">
+            <!-- Defining the different columns -->
             <colgroup>
                 <col class="table1">
                 <col class="table2">
@@ -55,6 +59,7 @@
                 <col class="table4">
                 <col class="table5">
               </colgroup>
+            <!-- Header for the columns -->
             <tr class="thead">
                 <th>Mnemonic</th>
                 <th>Class Name</th>
@@ -63,6 +68,7 @@
                 <th>Grade</th>
             </tr>
 
+            <!-- Class 1 -->
             <tr>
                 <td>CS 1110</td>
                 <td>Introduction to Programming</td>
@@ -95,6 +101,7 @@
                 </td>
             </tr>
 
+            <!-- Class 2 -->
             <tr>
                 <td>CS 2102</td>
                 <td>Discrete Mathematics</td>
@@ -127,6 +134,7 @@
                 </td>
             </tr>
 
+            <!-- Class 3 -->
             <tr>
                 <td>CS 2110</td>
                 <td>Software Development Methods</td>
@@ -159,6 +167,7 @@
                 </td>
             </tr>
 
+            <!-- Class 4 -->
             <tr>
                 <td>CS 2150</td>
                 <td>Program and Data Representation</td>
@@ -191,6 +200,7 @@
                 </td>
             </tr>
 
+            <!-- Class 5 -->
             <tr>
                 <td>CS 3330</td>
                 <td>Computer Architecture</td>
@@ -223,6 +233,7 @@
                 </td>
             </tr>
 
+            <!-- Class 6 -->
             <tr>
                 <td>CS 4102</td>
                 <td>Algorithms</td>
@@ -255,8 +266,10 @@
                 </td>
             </tr>
 
+            <!-- Table for Computing -->
             <div class="table-responsive">
                 <table class="table table-striped table-bordered" style="width:100%" id = "computing">
+                    <!-- Defining the columns for CSS -->
                     <colgroup>
                         <col class="table1">
                         <col class="table2">
@@ -264,6 +277,8 @@
                         <col class="table4">
                         <col class="table5">
                       </colgroup>
+
+                    <!-- Column Headers -->
                     <tr>
                         <th>Mnemonic</th>
                         <th>Class Name</th>
@@ -272,6 +287,7 @@
                         <th>Grade</th>
                     </tr>
 
+                    <!-- Computing Elective 1 -->
                     <tr>
                         <td><input type="text" id="computing1" name="computing1" maxlength="9" size="9"></td>
                         <td><input type="text" id="n_computing1" name="n_computing1" size="40"></td>
@@ -304,6 +320,7 @@
                         </td>
                     </tr>
 
+                    <!-- Computing Elective 2 -->
                     <tr>
                         <td><input type="text" id="computing2" name="computing2" maxlength="9" size="9"></td>
                         <td><input type="text" id="n_computing2" name="n_computing2" size="40"></td>
@@ -336,6 +353,7 @@
                         </td>
                     </tr>
 
+                    <!-- Computing Elective 3 -->
                     <tr>
                         <td><input type="text" id="computing3" name="computing3" maxlength="9" size="9"></td>
                         <td><input type="text" id="n_computing3" name="n_computing3" size="40"></td>
@@ -368,6 +386,7 @@
                         </td>
                     </tr>
 
+                    <!-- Computing Elective 4 -->
                     <tr>
                         <td><input type="text" id="computing4" name="computing4" maxlength="9" size="9"></td>
                         <td><input type="text" id="n_computing4" name="n_computing4" size="40"></td>
@@ -403,8 +422,10 @@
                 </table>
             </div>
 
+            <!-- Table for Integration Electives -->
             <div class="table-responsive">
                 <table class="table table-striped table-bordered" style="width:100%" id = "integration">
+                    <!-- Defining the Column Headers for CSS -->
                     <colgroup>
                         <col class="table1">
                         <col class="table2">
@@ -412,6 +433,7 @@
                         <col class="table4">
                         <col class="table5">
                       </colgroup>
+                    <!-- Column Names -->
                     <tr>
                         <th>Mnemonic</th>
                         <th>Class Name</th>
@@ -420,6 +442,7 @@
                         <th>Grade</th>
                     </tr>
 
+                    <!-- Integration Elective 1 -->
                     <tr>
                         <td><input type="text" id="integration1" name="integration1" maxlength="9" size="9"></td>
                         <td><input type="text" id="n_integration1" name="n_integration1" size="40"></td>
@@ -452,6 +475,7 @@
                         </td>
                     </tr>
 
+                    <!-- Integration Elective 2 -->
                     <tr>
                         <td><input type="text" id="integration2" name="integration2" maxlength="9" size="9"></td>
                         <td><input type="text" id="n_integration2" name="n_integration2" size="40"></td>
@@ -484,6 +508,7 @@
                         </td>
                     </tr>
 
+                    <!-- Integration Elective 3 -->
                     <tr>
                         <td><input type="text" id="integration3" name="integration3" maxlength="9" size="9"></td>
                         <td><input type="text" id="n_integration3" name="n_integration3" size="40"></td>
@@ -516,6 +541,7 @@
                         </td>
                     </tr>
 
+                    <!-- Integration Elective 4 -->
                     <tr>
                         <td><input type="text" id="integration4" name="integration4" maxlength="9" size="9"></td>
                         <td><input type="text" id="n_integration4" name="n_integration4" size="40"></td>
@@ -577,26 +603,31 @@
 
     </div>
 
+
         <script>
+            //Runs right when the page first loads to show only the general requirements
             var anonfunc = function() {
                 document.getElementById("computing").style.display = "none";
                 document.getElementById("integration").style.display = "none";
                 document.getElementById("general").style.display = "table";
             }();
             
-
+            // To change between the different class types
             function changeTable(){
                 var page = document.getElementById("Choice").value;
+                // General requirements
                 if (page == "1") {
                     document.getElementById("computing").style.display = "none";
                     document.getElementById("integration").style.display = "none";
                     document.getElementById("general").style.display = "table";
                 }
+                // Computing Elective
                 else if (page == "2") {
                     document.getElementById("integration").style.display = "none";
                     document.getElementById("general").style.display = "none";
                     document.getElementById("computing").style.display = "table";
                 }
+                // Integration Elective
                 else {
                     document.getElementById("computing").style.display = "none";                    
                     document.getElementById("general").style.display = "none";

@@ -3,6 +3,7 @@
     table-layout: auto;
 }
 
+/* Define the sizes for the columns */
 .table1{
     width: 10%;
 }
@@ -24,6 +25,7 @@
     width: 6%;
 }
 
+/* To change the table when the screen gets to a certain size */
 @media only screen and (max-width: 720px) {
     #general tr> *:nth-child(2) {
         display: none;
