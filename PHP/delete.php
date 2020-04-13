@@ -1,6 +1,7 @@
 <html>
     <?php 
     require("allActions.php");
+    session_start();
     ?>
     <head>
         <title>Delete Page</title>
@@ -36,16 +37,19 @@
             <li class="nav-item">
               <a class="nav-link" a href="requirementsPage.php">Requirements</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" a href="<?php if(isset($_SESSION['user'])){echo "LogOut.php";} else{echo "LoginPage.php";}?>"><?php if(isset($_SESSION['user'])){echo "Log Out";} else{echo "";}?></a>
+            </li>
           </ul>
         </div>
      </nav>
 
-    <?php session_start(); // make sessions available ?>
+
     <?php
     if (isset($_SESSION['user'])){
         if (!isset($_SESSION['id'])){
-            echo "<h1>There was nothing set to delete, taking you back to the requirements page</h1>";
-            header('refresh:3; url=requirementsPage.php');
+            echo '<h1 style="text-align:center" >There was nothing set to delete, taking you back to the requirements page</h1>';
+            header('refresh:2; url=requirementsPage.php');
         }
         else{
             $class = getOneTask($_SESSION['id']);
@@ -66,7 +70,7 @@
     <div class="container-fluid" style="text-align: center">
         
         <div class="container-fluid">
-            <h5 style="text-align: center">Are you sure you wish to delete class: <?php echo $class[0]["courseName"];?></h5>
+            <h5 style="text-align: center">Are you sure you wish to delete class: <?php if(isset($class[0]["courseName"])){echo $class[0]["courseName"];}?></h5>
         </div>
         <div class="form-row">
             
@@ -97,7 +101,7 @@
     }
     else
     {
-        echo 'Please <a href="LoginPage.php" ><button>Log in</button></a>';
+        echo '<h5 style="text-align:center">You need to log in first before viewing this page <a href="LoginPage.php" ></br/><button class="btn btn-primary">Log in</button></a></h5>';
     }
     ?>   
     

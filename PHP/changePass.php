@@ -2,6 +2,7 @@
     <?php
     require('connect-db.php'); 
     require("allActions.php");
+    session_start();
     ?>
 
     <head>
@@ -42,13 +43,16 @@
             <li class="nav-item">
               <a class="nav-link" a href="requirementsPage.php">Requirements</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" a href="<?php if(isset($_SESSION['user'])){echo "LogOut.php";} else{echo "LoginPage.php";}?>"><?php if(isset($_SESSION['user'])){echo "Log Out";} else{echo "";}?></a>
+            </li>
           </ul>
         </div>
      </nav>
 
-    <?php session_start(); // make sessions available ?>
     <?php
-    if (isset($_SESSION['user'])){
+    if (isset($_SESSION['user']))
+    {
         $user_info = getUserInfo($_SESSION['user']);
                 
         if ($_SERVER["REQUEST_METHOD"] == "POST")
@@ -59,8 +63,12 @@
             }
             else
             {
-                if( isset($_POST['pass1']) && isset($_POST['pass']) && isset($_POST['pass2']))
+                if( !empty($_POST['pass1']) && !empty($_POST['pass']) && !empty($_POST['pass2']))
                 {
+                    if (isset($_SESSION["pass"]))
+                    {
+                        unset($_SESSION["pass"]);
+                    }
                     if( $_POST['pass1'] == $_POST['pass2'] && (password_verify($_POST['pass'], $user_info[0]['pass'])))
                     {
                         $email = $_SESSION['user'];
@@ -76,7 +84,6 @@
                     }
                 }
                 else {
-                    session_start();
                     $_SESSION["pass"] = "yes";
                 }
                 
@@ -90,44 +97,41 @@
 
     <div class="container-fluid" style="text-align: center">
 
-        <div class="container-fluid">
-            <h5 style="text-align: center">Changing Password for <?php echo $_SESSION['user'];?></h5>
-        </div>
+        <h5 style="text-align: center">Changing Password for <?php echo $_SESSION['user'];?></h5>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" name="RegisterForm" method="post">
-        <span class="error_message" id="pass_error"><?php if(!empty($_POST['pass1'])) echo "Your Passwords do not match or your current password is wrong";?></span>
-        <br/>
-        <span class="error_message" id="pass_error"><?php if(!isset($_SESSION["pass"])&&$_SERVER["REQUEST_METHOD"] == "POST") echo "All blanks must be filled in";?></span>
+            <span class="error_message" id="pass_error"><?php if(!empty($_POST['pass1'])&&!empty($_POST['pass'])&&!empty($_POST['pass2'])) echo "Your Passwords do not match or your current password is wrong";?></span>
+            <br/>
+            <span class="error_message" id="pass_error"><?php if(isset($_SESSION["pass"]) && $_SERVER["REQUEST_METHOD"] == "POST") echo "All blanks must be filled in";?></span>
 
-        <div class="form-group">
-            <label for="exampleInputPassword1">Current Password</label>
-            <input type="password" class="form-control" name="pass" id="pass" placeholder="Password" >
-        </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Current Password</label>
+                <input type="password" class="form-control" name="pass" id="pass" placeholder="Password" >
+            </div>
 
-        <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control" name="pass1" id="pass1" placeholder="Password" >
+            <div class="form-group">
+                <label for="exampleInputPassword1">New Password</label>
+                <input type="password" class="form-control" name="pass1" id="pass1" placeholder="Password" >
             
-        </div>
+            </div>
 
-        <div class="form-group">
-            <label for="exampleInputPassword1">Re-enter Password</label>
-            <input type="password" class="form-control" name="pass2" id="pass2" placeholder="Password" >
-        </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Re-enter New Password</label>
+                <input type="password" class="form-control" name="pass2" id="pass2" placeholder="Password" >
+            </div>
 
-        <button type="submit" class="btn btn-danger">Submit</button>
+            <button type="submit" class="btn btn-danger">Submit</button>
 
         </form>
-        
-        <div class="form-row">
-            
-            </div>                       
+
+        <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post" >
+                                  
             <div class="form-group">
-                    <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
+                    
                         <br/>
-                        <input type="submit" value="Cancel" name="action2" class="btn btn-primary" />      
-                    </form>
+                        <input type="submit" value="Cancel" name="action" class="btn btn-primary" />      
+                    
             </div>
-        </div>
+        </form>
         
           
   
@@ -137,7 +141,7 @@
     }
     else
     {
-        echo 'Please <a href="LoginPage.php" ><button>Log in</button></a>';
+        echo '<h5 style="text-align:center">You need to log in first before viewing this page <a href="LoginPage.php" ></br/><button class="btn btn-primary">Log in</button></a></h5>';
     }
     ?>   
     

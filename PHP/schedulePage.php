@@ -1,4 +1,5 @@
 <html>
+    <?php session_start(); ?>
     <head>
         <meta charset="UTF-8">
         <title>Schedule Page</title>
@@ -59,10 +60,13 @@
             <li class="nav-item">
               <a class="nav-link" a href="requirementsPage.php">Requirements</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" a href="<?php if(isset($_SESSION['user'])){echo "LogOut.php";} else{echo "LoginPage.php";}?>"><?php if(isset($_SESSION['user'])){echo "Log Out";} else{echo "";}?></a>
+            </li>
+            
           </ul>
         </div>
      </nav>
-     <?php session_start(); // make sessions available ?>
     <?php
     if (isset($_SESSION['user'])){
     ?>
@@ -360,7 +364,8 @@
     <?php 
     }
     else{
-        echo 'Please <a href="LoginPage.php" ><button>Log in</button></a>';
+        
+        echo '<h5 style="text-align:center">You need to log in first before viewing this page <a href="LoginPage.php" ></br/><button class="btn btn-primary">Log in</button></a></h5>';
         }
     ?>
 </body>

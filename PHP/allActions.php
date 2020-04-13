@@ -1,7 +1,6 @@
 <?php
 
 
-
 function createUserTable()
 {
    require('connect-db.php');
@@ -40,16 +39,16 @@ function createCourseTable()
 
 function logout()
 {
+    session_start();
     if (count($_SESSION) > 0) 
     {
         foreach ($_SESSION as $key => $value)
         {
-          	
             unset($_SESSION[$key]);
-        }      
+        }     
     session_destroy();
     }
-    header('Location: LoginPage.php');
+    header('refresh:3; url=LoginPage.php');
 }
 
 

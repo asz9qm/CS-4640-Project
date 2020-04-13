@@ -3,6 +3,7 @@
   <?php 
     require('connect-db.php');
     require('allActions.php');
+    session_start();
   ?>
 
   <style>
@@ -49,12 +50,16 @@
           <li class="nav-item">
             <a class="nav-link" a href="requirementsPage.php">Requirements</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" a href="<?php if(isset($_SESSION['user'])){echo "LogOut.php";} else{echo "LoginPage.php";}?>"><?php if(isset($_SESSION['user'])){echo "Log Out";} else{echo "";}?></a>
+          </li>
+          
         </ul>
       </div>
    </nav>
 
    <?php
-   session_start();
+   
     if (!isset($_SESSION['user'])){
 
    ?>
@@ -62,25 +67,38 @@
    <?php 
     if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
-      $email = $_POST['user'];
       
-
-      $query = "SELECT pass FROM users WHERE email = :email";
-      
-      $statement = $db->prepare($query); 
-      $statement->bindParam(':email', $email);
-      $statement->execute();
-      $results = $statement->fetchAll();
-
-      if (!empty($results))
+      if (!empty($_POST['user']) && !empty($_POST['pass']))
       {
-        if (password_verify($_POST['pass'], $results[0]['pass'])) 
+        if (isset($_SESSION['blank']))
         {
-          session_start();
-          $_SESSION['user'] = $email;
-          header("Location: requirementsPage.php");
-        } 
+          unset($_SESSION['blank']);
+        }
+        $email = $_POST['user'];
+      
+
+        $query = "SELECT pass FROM users WHERE email = :email";
+        
+        $statement = $db->prepare($query); 
+        $statement->bindParam(':email', $email);
+        $statement->execute();
+        $results = $statement->fetchAll();
+
+        if (!empty($results))
+        {
+          if (password_verify($_POST['pass'], $results[0]['pass'])) 
+          {
+            session_start();
+            $_SESSION['user'] = $email;
+            header("Location: requirementsPage.php");
+          } 
+        }
+
       }
+      else{
+        $_SESSION['blank'] = "yes";
+      }
+      
       
 
     }
@@ -98,6 +116,7 @@
                 <!-- a form -->
                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" name="LoginForm" method="post">
                 <span class="error_message" id="msg_email"><?php if(!empty($email)) echo "Incorrect Username or Password or User does not exist"?></span>
+                <span class="error_message" id="msg_email"><?php if(!empty($_SESSION['blank'])) echo "Please fill in all fields"?></span>
                     <div class="form-group">
                       <label for="exampleInputEmail1">Email address</label>
                       <input type="email" class="form-control" id="user" name="user" aria-describedby="emailHelp" placeholder="Enter email">

@@ -48,6 +48,7 @@
           <li class="nav-item">
             <a class="nav-link" a href="requirementsPage.php">Requirements</a>
           </li>
+          
         </ul>
       </div>
     </nav>

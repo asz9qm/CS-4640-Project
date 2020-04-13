@@ -1,6 +1,7 @@
 <html>
     <?php 
     require("allActions.php");
+    session_start();
     ?>
     <head>
         <title>Edit Page</title>
@@ -36,27 +37,40 @@
             <li class="nav-item">
               <a class="nav-link" a href="requirementsPage.php">Requirements</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" a href="<?php if(isset($_SESSION['user'])){echo "LogOut.php";} else{echo "LoginPage.php";}?>"><?php if(isset($_SESSION['user'])){echo "Log Out";} else{echo "";}?></a>
+            </li>
           </ul>
         </div>
      </nav>
 
-    <?php session_start(); // make sessions available ?>
     <?php
     if (isset($_SESSION['user'])){
-        if (!isset($_SESSION['id'])){
-            echo "<h1>There was nothing set to edit, taking you back to the requirements page</h1>";
+        if (!isset($_SESSION['id']))
+        {
+            echo '<h1 style="text-align:center">There was nothing set to edit, taking you back to the requirements page</h1>';
             header('refresh:3; url=requirementsPage.php');
         }
-        else {
+        else 
+        {
             $class = getOneTask($_SESSION['id']);
         }
         if ($_SERVER["REQUEST_METHOD"] == "POST")
         {
+            if (!empty($_POST['action']) && ($_POST['action'] == 'Cancel'))
+            {
+                header("Location: requirementsPage.php");
+            }
+            else
+            {
+
+            
             //updateTaskInfo($id, $category, $courseID, $courseName, $taken, $semester, $grade)
             updateTaskInfo($_SESSION['id'], $_POST['category'], $_POST['courseID'], $_POST['courseName'],
                  $_POST['taken'], $_POST['semester'], $_POST['grade']);
             
             header('Location: requirementsPage.php');
+            }
 
         }
     ?>
@@ -64,7 +78,7 @@
     <div class="container" style="text-align: center;">
       
       <h3>
-          Editing Class <?php echo $class[0]["courseName"];?>
+          Editing Class <?php if(isset($class[0]["courseName"])){echo $class[0]["courseName"];}?>
       </h3>
       <!-- a form -->
       <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" name="editForm" method="post">
@@ -99,6 +113,7 @@
                 <div class="form-group col-md-4">
                     <label for="semester">Semester</label>
                     <select id="semester" name="semester" class="form-control"> 
+                        <option value="">None</option>
                         <option value="Fall 2017">Fall 2017</option>
                         <option value="Spring 2018">Spring 2018</option>
                         <option value="Fall 2018">Fall 2018</option>
@@ -113,6 +128,7 @@
                 <div class="form-group col-md-4">
                     <label for="grade">Grade</label>
                     <select id="grade" name="grade" class="form-control"> 
+                        <option value="">Not Taken</option>
                         <option value="A+">A+</option>
                         <option value="A">A</option>
                         <option value="A-">A-</option>
@@ -134,8 +150,15 @@
                 </div>
             </div>   
           
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                <button type="submit" class="btn btn-primary">Submit Changes</button>
+                </div>
+                <div class="form-group col-md-6">
+                <input type="submit" value="Cancel" name="action" class="btn btn-secondary" />
+                </div>
+            </div>
           
-          <button type="submit" class="btn btn-primary">Submit Changes</button>
         </form>
           
   
@@ -148,7 +171,7 @@
     }
     else
     {
-        echo 'Please <a href="LoginPage.php" ><button>Log in</button></a>';
+        echo '<h5 style="text-align:center">You need to log in first before viewing this page <a href="LoginPage.php" ></br/><button class="btn btn-primary">Log in</button></a></h5>';
     }
     ?>   
     
