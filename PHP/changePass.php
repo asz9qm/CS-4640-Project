@@ -1,0 +1,145 @@
+<html>
+    <?php
+    require('connect-db.php'); 
+    require("allActions.php");
+    ?>
+
+    <head>
+        <title>Change Password Page</title>
+        <meta name="viewport" content="initial-scale=1.0">
+        <meta charset="utf-8">
+        <meta name="author" content="Alan Zhai, Jennifer Liao">
+        <meta name="description" content="Requirements">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="../CSS/requirements.css">
+        <link rel="stylesheet" href="../CSS/main.css">
+
+        <!-- Need the following three lines in order for nav bar to work: https://stackoverflow.com/questions/45756307/bootstrap-4-toggle-button-not-working/45756365 -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>        
+    </head>
+
+    <style>
+    .error_message {  color: crimson; font-style:italic; }       
+    </style>
+    
+    <!-- Header Navigation Bar, resource: https://getbootstrap.com/docs/4.2/components/navbar/#how-it-works-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <h3> UVA Semester Scheduler</h3>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbar-collapse">
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+              <a class="nav-link" href="schedulePage.php">Home<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="loginPage.php">Account</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" a href="requirementsPage.php">Requirements</a>
+            </li>
+          </ul>
+        </div>
+     </nav>
+
+    <?php session_start(); // make sessions available ?>
+    <?php
+    if (isset($_SESSION['user'])){
+        $user_info = getUserInfo($_SESSION['user']);
+                
+        if ($_SERVER["REQUEST_METHOD"] == "POST")
+        {
+            if (!empty($_POST['action']) && ($_POST['action'] == 'Cancel'))
+            {
+                header("Location: requirementsPage.php");
+            }
+            else
+            {
+                if( isset($_POST['pass1']) && isset($_POST['pass']) && isset($_POST['pass2']))
+                {
+                    if( $_POST['pass1'] == $_POST['pass2'] && (password_verify($_POST['pass'], $user_info[0]['pass'])))
+                    {
+                        $email = $_SESSION['user'];
+                        $pass = password_hash($_POST['pass1'], PASSWORD_BCRYPT);
+                        $query = "UPDATE users SET pass=:pass WHERE email=:email";
+                        $statement = $db->prepare($query);
+                        $statement->bindValue(':pass', $pass);
+                        $statement->bindValue(':email', $email);
+                        $statement->execute();
+                        $statement->closeCursor();
+                        $_SESSION["pass_error"] = "";
+                        header("Location: requirementsPage.php");
+                    }
+                }
+                else {
+                    session_start();
+                    $_SESSION["pass"] = "yes";
+                }
+                
+                                
+                
+            }            
+            
+
+        }
+    ?>
+
+    <div class="container-fluid" style="text-align: center">
+
+        <div class="container-fluid">
+            <h5 style="text-align: center">Changing Password for <?php echo $_SESSION['user'];?></h5>
+        </div>
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" name="RegisterForm" method="post">
+        <span class="error_message" id="pass_error"><?php if(!empty($_POST['pass1'])) echo "Your Passwords do not match or your current password is wrong";?></span>
+        <br/>
+        <span class="error_message" id="pass_error"><?php if(!isset($_SESSION["pass"])&&$_SERVER["REQUEST_METHOD"] == "POST") echo "All blanks must be filled in";?></span>
+
+        <div class="form-group">
+            <label for="exampleInputPassword1">Current Password</label>
+            <input type="password" class="form-control" name="pass" id="pass" placeholder="Password" >
+        </div>
+
+        <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" name="pass1" id="pass1" placeholder="Password" >
+            
+        </div>
+
+        <div class="form-group">
+            <label for="exampleInputPassword1">Re-enter Password</label>
+            <input type="password" class="form-control" name="pass2" id="pass2" placeholder="Password" >
+        </div>
+
+        <button type="submit" class="btn btn-danger">Submit</button>
+
+        </form>
+        
+        <div class="form-row">
+            
+            </div>                       
+            <div class="form-group">
+                    <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
+                        <br/>
+                        <input type="submit" value="Cancel" name="action2" class="btn btn-primary" />      
+                    </form>
+            </div>
+        </div>
+        
+          
+  
+    </div>
+
+    <?php 
+    }
+    else
+    {
+        echo 'Please <a href="LoginPage.php" ><button>Log in</button></a>';
+    }
+    ?>   
+    
+    
+</html>

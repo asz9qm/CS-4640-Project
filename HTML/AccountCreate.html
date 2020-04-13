@@ -1,4 +1,10 @@
 <html>
+  <!-- <?php 
+    require('connect-db.php');
+    require('allActions.php');
+
+  ?> -->
+
     <head>
     <!-- tried to google login but that isn't working right now -->
     <!-- <meta name="google-signin-scope" content="profile email">
@@ -30,13 +36,13 @@
       <div class="collapse navbar-collapse" id="navbar-collapse">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
           <li class="nav-item active">
-            <a class="nav-link" href="schedulePage.html">Home<span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="schedulePage.php">Home<span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="loginPage.html">Account</a>
+            <a class="nav-link" href="loginPage.php">Account</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" a href="requirementsPage.html">Requirements</a>
+            <a class="nav-link" a href="requirementsPage.php">Requirements</a>
           </li>
         </ul>
       </div>
@@ -45,29 +51,48 @@
    <!-- the container for all of the components of the login bar -->
    <!-- Going to add more form verification once we switch to angular -->
     <div class="container" style="text-align: center;">
-      
+
+          <!-- one of the columns in the container -->
+          <!-- the sign up column -->
                 <h3>
-                    Login
+                    Sign Up
                 </h3>
-                <!-- a form -->
-                <form>
+                <form action="" name="RegisterForm" method="post" onsubmit="return checkRegistration()">
                     <div class="form-group">
                       <label for="exampleInputEmail1">Email address</label>
-                      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                      
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputPassword1">Password</label>
-                      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" >
+                      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                     </div>
                     
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Password</label>
+                      <input type="password" class="form-control" id="pass1" placeholder="Password" >
+                      <span class="error_message" id="msg_pass"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Re-enter Password</label>
+                        <input type="password" class="form-control" id="pass2" placeholder="Password" >
+                    </div>
+
+                    <div class ="form-group">
+                        <label for="year">School Year</label>
+                        <input type="text" class = "form-control" id="year" placeholder="Enter your year" >
+                        <small id="Year Help" class="form-text text-muted">Please enter an integer</small>
+                        <span class="error_message" id="msg_year"></span>
+                    </div>
+
+                    <div class ="form-group">
+                        <label for="Major">Enter your Major</label>
+                        <input type="text" class = "form-control" id="major" placeholder="Enter your major" >
+                    </div>
+
+                    <span class="error_message" id="overall"></span>
+                    <button type="submit" class="btn btn-secondary">Submit</button>
                   </form>
-                <div>Or</div>
-                <br/>
-                <a href="AccountCreate.html"><button class="btn btn-primary">Create an Account</button></a>     
-                       
-            
+
+
+
+
     </div>
   
     <!-- Footer Navigation Bar-->
@@ -75,42 +100,66 @@
       <div class="collapse navbar-collapse" id="navbarFooter">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
           <li class="nav-item active">
-            <a class="nav-link" href="schedulePage.html">Home<span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="schedulePage.php">Home<span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="loginPage.html">Account</a>
+            <a class="nav-link" href="loginPage.php">Account</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" a href="requirementsPage.html">Requirements</a>
+            <a class="nav-link" a href="requirementsPage.php">Requirements</a>
           </li>
         </ul>
       </div>
    </nav>
 
   </div>
-    <!-- Google Login Stuff -->
-  <!-- <body>
-    <div>
-        <p class="card-text-login" style="text-align:center;">Google Login</p>
-        <a href="" class="btn btn-danger btn-lg"><i class="fab fa-google"></i>   Continue</a>
-    </div>
+
+  <script>
+
+  function checkRegistration()
+  {
+    var pass1 = document.getElementById("pass1");
+    var pass2 = document.getElementById("pass2");
+    var year = document.getElementById("year");
+    var errors = 0;
     
+    //check if passwords match
+    if (pass1 != pass2)
+    {
+      errors++;
+      document.getElementById("msg_pass").innerHTML = "Your passwords do not match";      
+    }
+    else 
+    {
+      document.getElementById("msg_pass").innerHTML = "";
+    }
+      
 
-    <script>
-      function onSignIn(googleUser) {
-        // Useful data for your client-side scripts:
-        var profile = googleUser.getBasicProfile();
-        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
-        console.log('Full Name: ' + profile.getName());
-        console.log('Given Name: ' + profile.getGivenName());
-        console.log('Family Name: ' + profile.getFamilyName());
-        console.log("Image URL: " + profile.getImageUrl());
-        console.log("Email: " + profile.getEmail());
+    //checking that year is an integer
+    if (!isInt(year.value))
+    {
+      errors++;
+      document.getElementById("msg_year").innerHTML = "Your year is not an integer";
+    }
+    else 
+    {
+      document.getElementById("msg_pass").innerHTML = "";
+    }
 
-        // The ID token you need to pass to your backend:
-        var id_token = googleUser.getAuthResponse().id_token;
-        console.log("ID Token: " + id_token);
-      }
-    </script>
-  </body> -->
+    if (errors != 0)
+    {
+      document.getElementById("overall").innerHTML = "Please fix the errors and then resubmit";
+      return false;
+    }
+    else
+    {
+      document.getElementById("overall").innerHTML = "";
+      return true;
+    }  
+
+
+  }
+
+  </script>
+
 </html>

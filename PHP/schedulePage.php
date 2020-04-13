@@ -1,0 +1,368 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Schedule Page</title>
+        <meta name="viewport" content="initial-scale=1.0">
+        <meta charset="utf-8">
+        <meta name="author" content="Jennifer Liao">
+        <meta name="description" content="Schedule Page">
+        <link rel="stylesheet" href="../CSS/main.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" /> 
+        <!-- Need the following three lines in order for nav bar to work: https://stackoverflow.com/questions/45756307/bootstrap-4-toggle-button-not-working/45756365 -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>        
+ <style>
+            .Sameline { 
+            /* Makes sure that div with this class label stay in same line */
+             display: inline-block;  
+             padding:-2px;
+             margin:-5px;
+             }
+             .btn-circle {
+            /* Defines circular button format */
+            width: 30px;
+            height: 30px;
+            padding: 6px 0px;
+            border-radius: 15px;
+            border-color: black;
+            text-align: center;
+            font-size: 12px;
+            line-height: 1.42857;
+            }
+            .col {
+            /* formatting columns */
+            display: inline-block;
+            border: 1px solid gray;
+            padding: 4px 8px;
+            }
+           </style>
+    </head>
+
+<body>
+    
+    <!-- Header Navigation Bar, resource: https://getbootstrap.com/docs/4.2/components/navbar/#how-it-works-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <h3> UVA Semester Scheduler</h3>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbar-collapse">
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+              <a class="nav-link" href="schedulePage.php">Home<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="loginPage.php">Account</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" a href="requirementsPage.php">Requirements</a>
+            </li>
+          </ul>
+        </div>
+     </nav>
+     <?php session_start(); // make sessions available ?>
+    <?php
+    if (isset($_SESSION['user'])){
+    ?>
+    
+    <!-- Semester Container-->
+    <div class="container-fluid">
+        <div id = "row" class = "row">
+            <!--Semester 1-->
+            <div class="column">
+                <h1>Fall 2017</h1>
+                    <table id="semester1table" class="table" >
+                        <thead>
+                            <tr>
+                                <th>Class Name</th>
+                                <th>(x)</th>
+                            </tr>
+                        </thead>
+                    </table>
+                    <div class="Sameline">
+                        <div class="form-group">
+                        <input type="text" id="addclass1" class="form-control" name="desc" />
+                        </div>
+                    </div> 
+                    <div class="Sameline">
+                        <button id="semester1add" type="button" class="btn btn-default btn-circle" onclick="addRow('addclass1', 'semester1table', 'addclass1-note')">+<i class="fa fa-check"></i>     
+                    </div>
+                    </br>
+                    <span class="error" id="addclass1-note"></span>  
+                        
+            </div>
+            
+            <!--Semester 2-->
+            <div class="column">
+                <h1>Spring 2018</h1>
+                    <table id="semester2table" class="table" >
+                        <thead>
+                            <tr>
+                                <th>Class Name</th>
+                                <th>(x)</th>
+                            </tr>
+                        </thead>
+                    </table>
+                    <div class="Sameline">
+                        <div class="form-group">
+                        <input type="text" id="addclass2" class="form-control" name="desc" />
+                        </div>
+                    </div> 
+                    <div class="Sameline">
+                        <button id="semester2add" type="button" class="btn btn-default btn-circle" onclick="addRow('addclass2', 'semester2table', 'addclass2-note')">+<i class="fa fa-check"></i>     
+                    </div>
+                    </br>
+                    <span class="error" id="addclass1-note"></span>  
+            </div>
+
+            <!-- Semester 3 -->
+            <div class="column">
+                <h1>Fall 2018</h1>
+                    <table id="semester3table" class="table" >
+                        <thead>
+                            <tr>
+                                <th>Class Name</th>
+                                <th>(x)</th>
+                            </tr>
+                        </thead>
+                    </table>
+                    <div class="Sameline">
+                        <div class="form-group">
+                        <input type="text" id="addclass3" class="form-control" name="desc" />
+                        </div>
+                    </div> 
+                    <div class="Sameline">
+                        <button id="semester3add" type="button" class="btn btn-default btn-circle" onclick="addRow('addclass3', 'semester3table', 'addclass3-note')">+<i class="fa fa-check"></i>     
+                    </div>
+                    </br>
+                    <span class="error" id="addclass1-note"></span>  
+            </div>
+
+            <!-- Semester 4 -->
+            <div class="column">
+                <h1>Spring 2019</h1>
+                    <table id="semester4table" class="table" >
+                        <thead>
+                            <tr>
+                                <th>Class Name</th>
+                                <th>(x)</th>
+                            </tr>
+                        </thead>
+                    </table>
+                    <div class="Sameline">
+                        <div class="form-group">
+                        <input type="text" id="addclass4" class="form-control" name="desc" />
+                        </div>
+                    </div> 
+                    <div class="Sameline">
+                        <button id="semester4add" type="button" class="btn btn-default btn-circle" onclick="addRow('addclass4', 'semester4table', 'addclass4-note')">+<i class="fa fa-check"></i>     
+                    </div>
+                    </br>
+                    <span class="error" id="addclass1-note"></span>  
+            </div>
+
+            <!-- Semester 5 -->
+            <div class="column">
+                <h1>Fall 2019</h1>
+                    <table id="semester5table" class="table" >
+                        <thead>
+                            <tr>
+                                <th>Class Name</th>
+                                <th>(x)</th>
+                            </tr>
+                        </thead>
+                    </table>
+                    <div class="Sameline">
+                        <div class="form-group">
+                        <input type="text" id="addclass5" class="form-control" name="desc" />
+                        </div>
+                    </div> 
+                    <div class="Sameline">
+                        <button id="semester5add" type="button" class="btn btn-default btn-circle" onclick="addRow('addclass5', 'semester5table', 'addclass5-note')">+<i class="fa fa-check"></i>     
+                    </div>
+                    </br>
+                    <span class="error" id="addclass1-note"></span>  
+            </div>
+
+            <!-- Semester 6 -->
+            <div class="column">
+                <h1>Spring 2020</h1>
+                    <table id="semester6table" class="table" >
+                        <thead>
+                            <tr>
+                                <th>Class Name</th>
+                                <th>(x)</th>
+                            </tr>
+                        </thead>
+                    </table>
+                    <div class="Sameline">
+                        <div class="form-group">
+                        <input type="text" id="addclass6" class="form-control" name="desc" />
+                        </div>
+                    </div> 
+                    <div class="Sameline">
+                        <button id="semester6add" type="button" class="btn btn-default btn-circle" onclick="addRow('addclass6', 'semester6table', 'addclass7-note')">+<i class="fa fa-check"></i>     
+                    </div>
+                    </br>
+                    <span class="error" id="addclass1-note"></span>  
+            </div>
+
+            <!-- Semester 7 -->
+            <div class="column">
+                <h1>Fall 2020</h1>
+                    <table id="semester7table" class="table" >
+                        <thead>
+                            <tr>
+                                <th>Class Name</th>
+                                <th>(x)</th>
+                            </tr>
+                        </thead>
+                    </table>
+                    <div class="Sameline">
+                        <div class="form-group">
+                        <input type="text" id="addclass7" class="form-control" name="desc" />
+                        </div>
+                    </div> 
+                    <div class="Sameline">
+                        <button id="semester7add" type="button" class="btn btn-default btn-circle" onclick="addRow('addclass7', 'semester7table', 'addclass8-note')">+<i class="fa fa-check"></i>     
+                    </div>
+                    </br>
+                    <span class="error" id="addclass1-note"></span>  
+            </div>
+
+            <!-- Semester 8 -->
+            <div class="column">
+                <h1>Spring 2021</h1>
+                    <table id="semester8table" class="table" >
+                        <thead>
+                            <tr>
+                                <th>Class Name</th>
+                                <th>(x)</th>
+                            </tr>
+                        </thead>
+                    </table>
+                    <div class="Sameline">
+                        <div class="form-group">
+                        <input type="text" id="addclass8" class="form-control" name="desc" />
+                        </div>
+                    </div> 
+                    <div class="Sameline">
+                        <button id="semester8add" type="button" class="btn btn-default btn-circle" onclick="addRow('addclass8', 'semester8table', 'addclass8-note')">+<i class="fa fa-check"></i>     
+                    </div>
+                    </br>
+                    <span class="error" id="addclass1-note"></span>  
+            </div>
+
+        </div>
+            
+            <div class="column">
+                <div class = "Sameline">
+                    <p>Add a semester</p>
+                </div>
+                <div class="Sameline">
+                    <button id="addSemesterCol" type="button" class="btn btn-default btn-circle" onclick="addSemester()">+<i class="fa fa-check"></i>     
+                </div>
+            </div>
+
+    <!-- Footer Navigation Bar-->
+    <nav class="navbar navbar-expand-lg">      
+        <div class="collapse navbar-collapse" id="navbarFooter">
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+              <a class="nav-link" href="schedulePage.php">Home<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="loginPage.php">Account</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" a href="requirementsPage.php">Requirements</a>
+            </li>
+          </ul>
+        </div>
+     </nav>
+
+    </div>
+
+<script>
+
+    addRow = (addsemester, addtable, addClassNote) =>
+    {
+        // Adds a row to the semester 
+        var className = document.getElementById(addsemester).value;
+        var re_pattern = "([A-Za-z]{2,4}) ([0-9]+)";
+        var result = className.match(re_pattern);
+
+        if (className != null && result[1].length >= 2 && result[2].length <= 4 && result[2].length == 4){
+            var table = document.getElementById(addtable);
+            var newRow = table.insertRow(table.rows.length);
+            document.getElementById(addsemester).value = "";
+
+            var col2 = `<input type=button class='btn btn-default btn-circle' value=' x ' onClick='delRow("${addtable}")'>`;
+            var rowdata = [className, col2];
+            
+            var tableRef = document.getElementById(addtable);
+            var newRow = tableRef.insertRow(tableRef.rows.length);
+            newRow.onmouseover = function() {         
+                tableRef.clickedRowIndex = this.rowIndex;   // rowIndex returns the position of a row in the rows collection of a table     
+            };
+            var newCell = "";       
+            var i = 0;          // In this example, each row has 4 columns. 
+            // Use insertCell(index) method to insert new cells (<td> elements) at the 1st, 2nd, 3rd position of the new <tr> element        	      
+            while (i < 2)
+            {
+                newCell = newRow.insertCell(i);            // specify which column 
+                newCell.innerHTML = rowdata[i];            // assign what content  
+                newCell.onmouseover = this.rowIndex;       // attach row index to the row
+                i++;
+            }
+            document.getElementById(addClassNote).textContent = "";
+        }
+        else {
+            //alert
+            document.getElementById(addClassNote).textContent = "Please enter correct mnemonic";
+        }
+    }
+    
+    delRow = removeTable =>
+    {
+        //deletes a row from the table given the table to delete from as a parameter
+        document.getElementById(removeTable).deleteRow(document.getElementById(removeTable).clickedRowIndex);
+    }
+    
+    function addSemester()
+    {
+        var semesterNum = document.getElementById("row").children.length+1;
+        var rowContainer = document.querySelector("#row");
+        var templateCol = 
+        "<div class='column'> <div class='Sameline'><h1>Semester"+semesterNum+"</h1></div>"+
+        "<div class='Sameline'> <button id='removeSemester' type='button' class='btn btn-default btn-circle' " +
+        "onclick=\"removeDiv(this)\">-<i class='fa fa-check'></i> </div> <table id='semester"+semesterNum+"table' class='table'>"+            
+        "<thead> <tr> <th>Class Name</th> <th>(x)</th> </tr> </thead> </table>"+
+        "<div class='Sameline'> <div class='form-group'> <input type='text' id='addclass"+semesterNum+"' class='form-control' name='desc' />"+
+        " </div> </div> <div class='Sameline'> <button id='semester"+semesterNum+"add' type='button' class='btn btn-default btn-circle' "+
+        "onclick='addRow(\"addclass"+semesterNum+"\", \"semester"+semesterNum+"table\", \"addclass"+semesterNum+"-note\")'>+<i class='fa fa-check'></i> </div>"+     
+        "</br>  <span class='error' id='addclass"+semesterNum+"-note'></span> </div> </div>";
+        rowContainer.innerHTML = rowContainer.innerHTML + templateCol;
+        
+    }
+
+    removeDiv = btn =>
+    {
+        //removes semester from the page
+        ((btn.parentNode).parentNode.parentNode).removeChild(btn.parentNode.parentNode);
+    }
+
+    </script>
+</script>
+
+    <?php 
+    }
+    else{
+        echo 'Please <a href="LoginPage.php" ><button>Log in</button></a>';
+        }
+    ?>
+</body>
+
+</html>
