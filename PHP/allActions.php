@@ -60,7 +60,7 @@ function logout()
 function addCourse($category, $email, $courseID, $courseName, $taken, $semester, $grade)
 {
     require('connect-db.php');
-
+    echo "running";
     $query = "INSERT INTO courses (category, email, courseID, courseName, taken, semester, grade)
          VALUES (:category, :email, :courseID, :courseName, :taken, :semester, :grade)";
 
@@ -74,6 +74,7 @@ function addCourse($category, $email, $courseID, $courseName, $taken, $semester,
     $statement->bindValue(':grade', $grade);
     $statement->execute();     
     $statement->closeCursor();
+    return 'it works';
     
 }
 

@@ -54,13 +54,20 @@
             {
                 header("Location: requirementsPage.php");
             }
-            else {
+            else if (!empty($_POST['action']) && ($_POST['action'] == 'Submit Changes')){
                 //addCourse($category, $email, $courseID, $courseName, $taken, $semester, $grade)
                 addCourse($_POST['category'], $_SESSION["user"], $_POST['courseID'], $_POST['courseName'],
                  $_POST['taken'], $_POST['semester'], $_POST['grade']);
             
                 header('Location: requirementsPage.php');
 
+            }
+            else{
+                echo $_POST["test"];
+                var_dump ($_POST);
+                // addCourse($_POST['category'], $_SESSION["user"], $_POST['courseID'], $_POST['courseName'],
+                //  $_POST['taken'], $_POST['semester'], $_POST['grade']);
+                header('Location: schedulePage.php');
             }
             
             
