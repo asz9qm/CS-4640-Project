@@ -54,11 +54,10 @@
             {
                 header("Location: requirementsPage.php");
             }
-            else if (!empty($_POST['action'])){
+            else if (!empty($_POST['action'])&&$_POST['action']== 'submit'){
                 //addCourse($category, $email, $courseID, $courseName, $taken, $semester, $grade)
                 addCourse($_POST['category'], $_SESSION["user"], $_POST['courseID'], $_POST['courseName'],
                  $_POST['taken'], $_POST['semester'], $_POST['grade']);
-            
                 header('Location: requirementsPage.php');
 
             }           
@@ -141,7 +140,7 @@
           
             <div class="form-row">
                 <div class="form-group col-md-6">
-                <button type="submit" class="btn btn-primary">Submit Changes</button>
+                <button type="submit" value="submit" name="action" class="btn btn-primary">Submit Changes</button>
                 </div>
                 <div class="form-group col-md-6">
                 <input type="submit" value="Cancel" name="action" class="btn btn-secondary" />
