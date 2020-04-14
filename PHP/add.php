@@ -61,17 +61,7 @@
             
                 header('Location: requirementsPage.php');
 
-            }
-            else{
-                echo $_POST["test"];
-                var_dump ($_POST);
-                // addCourse($_POST['category'], $_SESSION["user"], $_POST['courseID'], $_POST['courseName'],
-                //  $_POST['taken'], $_POST['semester'], $_POST['grade']);
-                header('Location: schedulePage.php');
-            }
-            
-            
-
+            }           
         }
     ?>
 

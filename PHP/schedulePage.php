@@ -43,34 +43,7 @@
     </head>
 
 <body>
-    <?php
-    //define all functions here
-    function getAllCoursesPerSemester($email, $semester)
-    {
-        //return array of courses that match the specified semester
-        require('connect-db.php');
-        $query = "SELECT * FROM courses WHERE email = :email AND semester = :semester";
-        $statement = $db->prepare($query);
-        $statement->bindParam(':email', $email);
-        $statement->bindParam(':semester', $semester);
-        $statement->execute();
-        
-        // fetchAll() returns an array for all of the rows in the result set
-        $results = $statement->fetchAll();
-        
-        // closes the cursor and frees the connection to the server so other SQL statements may be issued
-        $statement->closecursor();
-        
-        return $results;
-    }
 
-    function addCourseBySemestertoDB($semester, $courseID, $taken, $grade, $courseInfo)
-    {
-        require('connect-db.php');
-        echo "add course to DB placeholder";
-    }
-
-    ?>
     <!-- Header Navigation Bar, resource: https://getbootstrap.com/docs/4.2/components/navbar/#how-it-works-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <h3> UVA Semester Scheduler</h3>
@@ -98,10 +71,6 @@
      </nav>
     <?php
     if (isset($_SESSION['user'])){
-    ?>
-
-    <?php 
-    //update tables from database here
         if ($_SERVER['REQUEST_METHOD'] == 'GET')
         {
             $semesters = array("Fall 2017", "Spring 2018", "Fall 2018", "Spring 2019", "Fall 2019", "Spring 2020", "Fall 2020", "Spring 2021");
@@ -110,25 +79,58 @@
                 $semesters_results[$semestername] = getAllCoursesPerSemester($_SESSION['user'], $semestername);
             endforeach;
         }
-        else if ($_SERVER['REQUEST_METHOD'] == 'POST')
+        else if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['action'] == '+')
         {
-            echo "ran post else if";
-            echo $_POST['semester'];
-            var_dump($_POST);
-            // header("Location: add.php");
-
-            // if (!empty($_POST['action']) && ($_POST['action'] == '+'))
-            // { 
-            //     header("Location: add.php");
-            // }
+            echo "run else";
+            $taskExists = checkTasks($_SESSION['user'], $_POST['courseID']);
+            if ($_POST['taken'] == "Yes" || $_POST['taken'] == "Y"){
+                $_POST['taken'] = 1;
+            }
+            else if ($_POST['taken'] == "No"){
+                $_POST['taken'] = 0;
+            }
+            if ($taskExists){
+                // //update if it exists
+                echo "exists";
+                $result = getSameTask($_SESSION['user'], $_POST['courseID']);
+                $items = array('category', 'courseName', 'grade');
+                foreach ($items as $item):
+                    if ($_POST[$item] == ""){
+                        $_POST[$item] = $result[$item];
+                    }
+                endforeach;
+                if ($_POST['taken'] == ""){
+                    $_POST['taken'] = 0;
+                }
+                
+                // updateTaskInfo($result['id'], $_POST['category'], $_POST['courseID'], $_POST['courseName'], $_POST['taken'], $_POST['semester'], $_POST['grade']);
+                updateTaskInfo($result['id'], $_POST['category'], $_POST['courseID'], $_POST['courseName'],
+                 $_POST['taken'], $_POST['semester'], $_POST['grade']);
+                $result = getSameTask($_SESSION['user'], $_POST['courseID']);
+                
+                header('Location: schedulePage.php');
+            }
+            else{
+                //add if it doesn't exist
+                addCourse($_POST['category'], $_SESSION['user'], $_POST['courseID'], $_POST['courseName'], $_POST['taken'], $_POST['semester'], $_POST['grade']);
+                header('Location: schedulePage.php');
+            }
+        }
+        else if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['action'] == 'X')
+        {   
+            print_r($_POST);
+            $result = getSameTask($_SESSION['user'], $_POST['courseID']);
+            print_r($result);
+            deleteTask($result['id']);
+            header('Location: schedulePage.php');
         }
     ?>
 
     <!-- Semester Container-->
     <div class="container-fluid">
         <div id = "row" class = "row">
-            <!-- Semester 1 -->
-            <div class="column">
+        <!-- Semester 1 -->
+        <div class="column">
                 <h1 id="semester1">Fall 2017</h1>
             <table class="table table-striped table-bordered" style="width:100%" id = "semester1table">
                 <!-- Defining the Column Headers for CSS -->
@@ -160,21 +162,29 @@
                         <?php echo $course["grade"]; ?> 
                     </td>                     
                     <td>
-                        <input type=button class='btn btn-default btn-circle' value=' x ' onClick=''>
+                    <form action="<?php $_SERVER["PHP_SELF"] ?>" method="post" >
+                        <input name="courseID" type="hidden" id="courseID1" size="10" value="<?=$course["courseID"]?>"/>
+                        <input name="taken" type="hidden" id="taken1" size="4" value="<?=$course['taken']?>"/>
+                        <input name="grade" type="hidden" id="grade1" size="4" value="<?=$course['grade']?>"/>
+                        <input name="semester" type="hidden" id="semester" value="Fall 2017"/>                   
+                        <input name="courseName" type="hidden" id="courseName" value=""/>
+                        <input name="category" type="hidden" id="category" value=""/>
+                        <input type=submit name="action" class='btn btn-default btn-circle' value='X'>
+                    </form>
                     </td>                                
                 </tr>
                 <?php endforeach; ?>
                 <!-- form for adding class to table -->
-                <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post" >
+                <form action="<?php $_SERVER["PHP_SELF"] ?>" method="post" >
                 <tr>
-                    <td><input name="courseID" type="text" id="courseID1" size="10" /></td>
+                    <td><input name="courseID" type="text" id="courseID1" size="10"/></td>
                     <td><input name="taken" type="text" id="taken1" size="4"/></td>
                     <td><input name="grade" type="text" id="grade1" size="4"/></td>
                     <input name="semester" type="hidden" id="semester" value="Fall 2017"/>                   
                     <input name="courseName" type="hidden" id="courseName" value=""/>
                     <input name="category" type="hidden" id="category" value=""/>
                     <td>
-                    <button id="semester1add" name="action" type="submit" class="btn btn-default btn-circle">+<i class="fa fa-check"></i>
+                    <button id="semester1add" name="action" value="+" type="submit" class="btn btn-default btn-circle">+<i class="fa fa-check"></i>
                     </td>
                 </tr>
                 </form>
@@ -182,10 +192,10 @@
             <span class="error" id="addclass1-note"></span> 
         </div>
 
-        <!-- Semester 2 -->
+        <!-- Semester 2-->
         <div class="column">
-            <h1>Spring 2018</h1>
-            <table class="table table-striped table-bordered" style="width:100%" id = "integration">
+            <h1 id="semester2">Spring 2018</h1>
+            <table class="table table-striped table-bordered" style="width:100%" id = "semester1table">
                 <!-- Defining the Column Headers for CSS -->
                 <colgroup>
                     <col class="table1">
@@ -215,59 +225,415 @@
                         <?php echo $course["grade"]; ?> 
                     </td>                     
                     <td>
-                        <input type=button class='btn btn-default btn-circle' value=' x ' onClick=''>
+                    <form action="<?php $_SERVER["PHP_SELF"] ?>" method="post" >
+                        <input name="courseID" type="hidden" id="courseID1" size="10" value="<?=$course["courseID"]?>"/>
+                        <input name="taken" type="hidden" id="taken1" size="4" value="<?=$course['taken']?>"/>
+                        <input name="grade" type="hidden" id="grade1" size="4" value="<?=$course['grade']?>"/>
+                        <input name="semester" type="hidden" id="semester" value="Spring 2018"/>                   
+                        <input name="courseName" type="hidden" id="courseName" value=""/>
+                        <input name="category" type="hidden" id="category" value=""/>
+                        <input type=submit name="action" class='btn btn-default btn-circle' value='X'>
+                    </form>
                     </td>                                
                 </tr>
                 <?php endforeach; ?>
-                
+                <!-- form for adding class to table -->
+                <form action="<?php $_SERVER["PHP_SELF"] ?>" method="post" >
+                <tr>
+                    <td><input name="courseID" type="text" id="courseID2" size="10"/></td>
+                    <td><input name="taken" type="text" id="taken2" size="4"/></td>
+                    <td><input name="grade" type="text" id="grade2" size="4"/></td>
+                    <input name="semester" type="hidden" id="semester" value="Spring 2018"/>                   
+                    <input name="courseName" type="hidden" id="courseName" value=""/>
+                    <input name="category" type="hidden" id="category" value=""/>
+                    <td>
+                    <button id="semester2add" name="action" value="+" type="submit" class="btn btn-default btn-circle">+<i class="fa fa-check"></i>
+                    </td>
+                </tr>
+                </form>
             </table>
-
-
-            <div class="Sameline">
-                <div class="form-group">
-                <input type="text" id="addclass2" class="form-control" name="desc" />
-            </div>
-            </div> 
-                <div class="Sameline">
-                    <!-- <button id="semester2add" type="button" class="btn btn-default btn-circle" onclick="addTableRow('addclass2', 'semester2table', 'addclass2-note')">+<i class="fa fa-check"></i>      -->
-                </div>
-            </br>
-            <span class="error" id="addclass2-note"></span>  
-            </div>
-
-            <!--Semester 2-->
-            <!-- <div class="column">
-                <h1>Spring 2018</h1>
-                    <table id="semester2table" class="table" >
-                        <thead>
-                            <tr>
-                                <th>Class Name</th>
-                                <th>(x)</th>
-                            </tr>
-                        </thead>
-                    </table>
-                    <div class="Sameline">
-                        <div class="form-group">
-                        <input type="text" id="addclass2" class="form-control" name="desc" />
-                        </div>
-                    </div> 
-                    <div class="Sameline">
-                        <button id="semester2add" type="button" class="btn btn-default btn-circle" onclick="addRow('addclass2', 'semester2table', 'addclass2-note')">+<i class="fa fa-check"></i>     
-                    </div>
-                    </br>
-                    <span class="error" id="addclass1-note"></span>  
-            </div> -->
-
+            <span class="error" id="addclass2-note"></span> 
         </div>
             
-            <div class="column">
-                <div class = "Sameline">
-                    <p>Add a semester</p>
-                </div>
-                <div class="Sameline">
-                    <button id="addSemesterCol" type="button" class="btn btn-default btn-circle" onclick="addSemester()">+<i class="fa fa-check"></i>     
-                </div>
-            </div>
+        <!-- Semester 3 -->
+        <div class="column">
+            <h1 id="semester3">Fall 2018</h1>
+            <table class="table table-striped table-bordered" style="width:100%" id = "semester1table">
+                <!-- Defining the Column Headers for CSS -->
+                <colgroup>
+                    <col class="table1">
+                    <col class="table2">
+                    <col class="table3">
+                    <col class="table4">
+                </colgroup>
+                <!-- Column Names -->
+                <tr>
+                    <th>Mnemonic</th>
+                    <th style="text-align: center;">(Y)</th>
+                    <th>Grade</th>
+                    <th>(X)</th>
+                </tr>
+                <?php 
+                $semester3 = $semesters_results["Fall 2018"];
+                foreach ($semester3 as $course): 
+                ?>
+                <tr>
+                    <td>
+                        <?php echo $course['courseID']; // refer to column name in the table ?> 
+                    </td>
+                    <td>
+                        <?php if($course['taken'] == 1){echo "Yes";}; ?> 
+                    </td>
+                    <td>
+                        <?php echo $course["grade"]; ?> 
+                    </td>                     
+                    <td>
+                    <form action="<?php $_SERVER["PHP_SELF"] ?>" method="post" >
+                        <input name="courseID" type="hidden" id="courseID1" size="10" value="<?=$course["courseID"]?>"/>
+                        <input name="taken" type="hidden" id="taken1" size="4" value="<?=$course['taken']?>"/>
+                        <input name="grade" type="hidden" id="grade1" size="4" value="<?=$course['grade']?>"/>
+                        <input name="semester" type="hidden" id="semester" value="Fall 2018"/>                   
+                        <input name="courseName" type="hidden" id="courseName" value=""/>
+                        <input name="category" type="hidden" id="category" value=""/>
+                        <input type=submit name="action" class='btn btn-default btn-circle' value='X'>
+                    </form>
+                    </td>                                
+                </tr>
+                <?php endforeach; ?>
+                <!-- form for adding class to table -->
+                <tr>
+                    <form action="<?php $_SERVER["PHP_SELF"] ?>" method="post" >
+                    <td><input name="courseID" type="text" id="courseID2" size="10"/></td>
+                    <td><input name="taken" type="text" id="taken2" size="4"/></td>
+                    <td><input name="grade" type="text" id="grade2" size="4"/></td>
+                    <input name="semester" type="hidden" id="semester" value="Spring 2018"/>                   
+                    <input name="courseName" type="hidden" id="courseName" value=""/>
+                    <input name="category" type="hidden" id="category" value=""/>
+                    <td>
+                    <button id="semester2add" name="action" value="+" type="submit" class="btn btn-default btn-circle">+<i class="fa fa-check"></i>
+                    </td>
+                    </form>
+                </tr>
+            </table>
+            <span class="error" id="addclass3-note"></span> 
+        </div>
+
+        <!-- Semester 4-->
+        <div class="column">
+            <h1 id="semester4">Spring 2019</h1>
+            <table class="table table-striped table-bordered" style="width:100%" id = "semester1table">
+                <!-- Defining the Column Headers for CSS -->
+                <colgroup>
+                    <col class="table1">
+                    <col class="table2">
+                    <col class="table3">
+                    <col class="table4">
+                </colgroup>
+                <!-- Column Names -->
+                <tr>
+                    <th>Mnemonic</th>
+                    <th style="text-align: center;">(Y)</th>
+                    <th>Grade</th>
+                    <th>(X)</th>
+                </tr>
+                <?php 
+                $semester4 = $semesters_results["Spring 2019"];
+                foreach ($semester4 as $course): 
+                ?>
+                <tr>
+                    <td>
+                        <?php echo $course['courseID']; // refer to column name in the table ?> 
+                    </td>
+                    <td>
+                        <?php if($course['taken'] == 1){echo "Yes";}; ?> 
+                    </td>
+                    <td>
+                        <?php echo $course["grade"]; ?> 
+                    </td>                     
+                    <td>
+                    <form action="<?php $_SERVER["PHP_SELF"] ?>" method="post" >
+                        <input name="courseID" type="hidden" id="courseID4" size="10" value="<?=$course["courseID"]?>"/>
+                        <input name="taken" type="hidden" id="taken4" size="4" value="<?=$course['taken']?>"/>
+                        <input name="grade" type="hidden" id="grade4" size="4" value="<?=$course['grade']?>"/>
+                        <input name="semester" type="hidden" id="semester" value="Spring 2019"/>                   
+                        <input name="courseName" type="hidden" id="courseName" value=""/>
+                        <input name="category" type="hidden" id="category" value=""/>
+                        <input type=submit name="action" class='btn btn-default btn-circle' value='X'>
+                    </form>
+                    </td>                                
+                </tr>
+                <?php endforeach; ?>
+                <!-- form for adding class to table -->
+                <form action="<?php $_SERVER["PHP_SELF"] ?>" method="post" >
+                <tr>
+                    <td><input name="courseID" type="text" id="courseID4" size="10"/></td>
+                    <td><input name="taken" type="text" id="taken4" size="4"/></td>
+                    <td><input name="grade" type="text" id="grade4" size="4"/></td>
+                    <input name="semester" type="hidden" id="semester" value="Spring 2018"/>                   
+                    <input name="courseName" type="hidden" id="courseName" value=""/>
+                    <input name="category" type="hidden" id="category" value=""/>
+                    <td>
+                    <button id="semester4add" name="action" value="+" type="submit" class="btn btn-default btn-circle">+<i class="fa fa-check"></i>
+                    </td>
+                </tr>
+                </form>
+            </table>
+            <span class="error" id="addclass4-note"></span> 
+        </div>
+            
+        <!-- Semester 5-->
+        <div class="column">
+            <h1 id="semester5">Fall 2019</h1>
+            <table class="table table-striped table-bordered" style="width:100%" id = "semester1table">
+                <!-- Defining the Column Headers for CSS -->
+                <colgroup>
+                    <col class="table1">
+                    <col class="table2">
+                    <col class="table3">
+                    <col class="table4">
+                </colgroup>
+                <!-- Column Names -->
+                <tr>
+                    <th>Mnemonic</th>
+                    <th style="text-align: center;">(Y)</th>
+                    <th>Grade</th>
+                    <th>(X)</th>
+                </tr>
+                <?php 
+                $semester5 = $semesters_results["Fall 2019"];
+                foreach ($semester5 as $course): 
+                ?>
+                <tr>
+                    <td>
+                        <?php echo $course['courseID']; // refer to column name in the table ?> 
+                    </td>
+                    <td>
+                        <?php if($course['taken'] == 1){echo "Yes";}; ?> 
+                    </td>
+                    <td>
+                        <?php echo $course["grade"]; ?> 
+                    </td>                     
+                    <td>
+                    <form action="<?php $_SERVER["PHP_SELF"] ?>" method="post" >
+                        <input name="courseID" type="hidden" id="courseID5" size="10" value="<?=$course["courseID"]?>"/>
+                        <input name="taken" type="hidden" id="taken5" size="4" value="<?=$course['taken']?>"/>
+                        <input name="grade" type="hidden" id="grade5" size="4" value="<?=$course['grade']?>"/>
+                        <input name="semester" type="hidden" id="semester" value="Fall 2019"/>                   
+                        <input name="courseName" type="hidden" id="courseName" value=""/>
+                        <input name="category" type="hidden" id="category" value=""/>
+                        <input type=submit name="action" class='btn btn-default btn-circle' value='X'>
+                    </form>
+                    </td>                                
+                </tr>
+                <?php endforeach; ?>
+                <!-- form for adding class to table -->
+                <form action="<?php $_SERVER["PHP_SELF"] ?>" method="post" >
+                <tr>
+                    <td><input name="courseID" type="text" id="courseID5" size="10"/></td>
+                    <td><input name="taken" type="text" id="taken5" size="4"/></td>
+                    <td><input name="grade" type="text" id="grade5" size="4"/></td>
+                    <input name="semester" type="hidden" id="semester" value="Fall 2017"/>                   
+                    <input name="courseName" type="hidden" id="courseName" value=""/>
+                    <input name="category" type="hidden" id="category" value=""/>
+                    <td>
+                    <button id="semester5add" name="action" value="+" type="submit" class="btn btn-default btn-circle">+<i class="fa fa-check"></i>
+                    </td>
+                </tr>
+                </form>
+            </table>
+            <span class="error" id="addclass5-note"></span> 
+        </div>
+
+        <!-- Semester 6-->
+        <div class="column">
+            <h1 id="semester6">Spring 2020</h1>
+            <table class="table table-striped table-bordered" style="width:100%" id = "semester1table">
+                <!-- Defining the Column Headers for CSS -->
+                <colgroup>
+                    <col class="table1">
+                    <col class="table2">
+                    <col class="table3">
+                    <col class="table4">
+                </colgroup>
+                <!-- Column Names -->
+                <tr>
+                    <th>Mnemonic</th>
+                    <th style="text-align: center;">(Y)</th>
+                    <th>Grade</th>
+                    <th>(X)</th>
+                </tr>
+                <?php 
+                $semester6 = $semesters_results["Spring 2020"];
+                foreach ($semester6 as $course): 
+                ?>
+                <tr>
+                    <td>
+                        <?php echo $course['courseID']; // refer to column name in the table ?> 
+                    </td>
+                    <td>
+                        <?php if($course['taken'] == 1){echo "Yes";}; ?> 
+                    </td>
+                    <td>
+                        <?php echo $course["grade"]; ?> 
+                    </td>                     
+                    <td>
+                    <form action="<?php $_SERVER["PHP_SELF"] ?>" method="post" >
+                        <input name="courseID" type="hidden" id="courseID6" size="10" value="<?=$course["courseID"]?>"/>
+                        <input name="taken" type="hidden" id="taken6" size="4" value="<?=$course['taken']?>"/>
+                        <input name="grade" type="hidden" id="grade6" size="4" value="<?=$course['grade']?>"/>
+                        <input name="semester" type="hidden" id="semester" value="Spring 2020"/>                   
+                        <input name="courseName" type="hidden" id="courseName" value=""/>
+                        <input name="category" type="hidden" id="category" value=""/>
+                        <input type=submit name="action" class='btn btn-default btn-circle' value='X'>
+                    </form>
+                    </td>                                
+                </tr>
+                <?php endforeach; ?>
+                <!-- form for adding class to table -->
+                <form action="<?php $_SERVER["PHP_SELF"] ?>" method="post" >
+                <tr>
+                    <td><input name="courseID" type="text" id="courseID6" size="10"/></td>
+                    <td><input name="taken" type="text" id="taken6" size="4"/></td>
+                    <td><input name="grade" type="text" id="grade6" size="4"/></td>
+                    <input name="semester" type="hidden" id="semester" value="Spring 2018"/>                   
+                    <input name="courseName" type="hidden" id="courseName" value=""/>
+                    <input name="category" type="hidden" id="category" value=""/>
+                    <td>
+                    <button id="semester6add" name="action" value="+" type="submit" class="btn btn-default btn-circle">+<i class="fa fa-check"></i>
+                    </td>
+                </tr>
+                </form>
+            </table>
+            <span class="error" id="addclass6-note"></span> 
+        </div>
+
+        <!-- Semester 7 -->
+        <div class="column">
+            <h1 id="semester7">Fall 2020</h1>
+            <table class="table table-striped table-bordered" style="width:100%" id = "semester1table">
+                <!-- Defining the Column Headers for CSS -->
+                <colgroup>
+                    <col class="table1">
+                    <col class="table2">
+                    <col class="table3">
+                    <col class="table4">
+                </colgroup>
+                <!-- Column Names -->
+                <tr>
+                    <th>Mnemonic</th>
+                    <th style="text-align: center;">(Y)</th>
+                    <th>Grade</th>
+                    <th>(X)</th>
+                </tr>
+                <?php 
+                $semester7 = $semesters_results["Fall 2020"];
+                foreach ($semester7 as $course): 
+                ?>
+                <tr>
+                    <td>
+                        <?php echo $course['courseID']; // refer to column name in the table ?> 
+                    </td>
+                    <td>
+                        <?php if($course['taken'] == 1){echo "Yes";}; ?> 
+                    </td>
+                    <td>
+                        <?php echo $course["grade"]; ?> 
+                    </td>                     
+                    <td>
+                    <form action="<?php $_SERVER["PHP_SELF"] ?>" method="post" >
+                        <input name="courseID" type="hidden" id="courseID7" size="10" value="<?=$course["courseID"]?>"/>
+                        <input name="taken" type="hidden" id="taken7" size="4" value="<?=$course['taken']?>"/>
+                        <input name="grade" type="hidden" id="grade7" size="4" value="<?=$course['grade']?>"/>
+                        <input name="semester" type="hidden" id="semester" value="Fall 2017"/>                   
+                        <input name="courseName" type="hidden" id="courseName" value=""/>
+                        <input name="category" type="hidden" id="category" value=""/>
+                        <input type=submit name="action" class='btn btn-default btn-circle' value='X'>
+                    </form>
+                    </td>                                
+                </tr>
+                <?php endforeach; ?>
+                <!-- form for adding class to table -->
+                <form action="<?php $_SERVER["PHP_SELF"] ?>" method="post" >
+                <tr>
+                    <td><input name="courseID" type="text" id="courseID7" size="10"/></td>
+                    <td><input name="taken" type="text" id="taken7" size="4"/></td>
+                    <td><input name="grade" type="text" id="grade7" size="4"/></td>
+                    <input name="semester" type="hidden" id="semester" value="Fall 2017"/>                   
+                    <input name="courseName" type="hidden" id="courseName" value=""/>
+                    <input name="category" type="hidden" id="category" value=""/>
+                    <td>
+                    <button id="semester7add" name="action" value="+" type="submit" class="btn btn-default btn-circle">+<i class="fa fa-check"></i>
+                    </td>
+                </tr>
+                </form>
+            </table>
+            <span class="error" id="addclass7-note"></span> 
+        </div>
+
+        <!-- Semester 8-->
+        <div class="column">
+                <h1 id="semester1">Spring 2021</h1>
+            <table class="table table-striped table-bordered" style="width:100%" id = "semester1table">
+                <!-- Defining the Column Headers for CSS -->
+                <colgroup>
+                    <col class="table1">
+                    <col class="table2">
+                    <col class="table3">
+                    <col class="table4">
+                </colgroup>
+                <!-- Column Names -->
+                <tr>
+                    <th>Mnemonic</th>
+                    <th style="text-align: center;">(Y)</th>
+                    <th>Grade</th>
+                    <th>(X)</th>
+                </tr>
+                <?php 
+                $semester8 = $semesters_results["Spring 2021"];
+                foreach ($semester8 as $course): 
+                ?>
+                <tr>
+                    <td>
+                        <?php echo $course['courseID']; // refer to column name in the table ?> 
+                    </td>
+                    <td>
+                        <?php if($course['taken'] == 1){echo "Yes";}; ?> 
+                    </td>
+                    <td>
+                        <?php echo $course["grade"]; ?> 
+                    </td>                     
+                    <td>
+                    <form action="<?php $_SERVER["PHP_SELF"] ?>" method="post" >
+                        <input name="courseID" type="hidden" id="courseID8" size="10" value="<?=$course["courseID"]?>"/>
+                        <input name="taken" type="hidden" id="taken8" size="4" value="<?=$course['taken']?>"/>
+                        <input name="grade" type="hidden" id="grade8" size="4" value="<?=$course['grade']?>"/>
+                        <input name="semester" type="hidden" id="semester" value="Spring 2018"/>                   
+                        <input name="courseName" type="hidden" id="courseName" value=""/>
+                        <input name="category" type="hidden" id="category" value=""/>
+                        <input type=submit name="action" class='btn btn-default btn-circle' value='X'>
+                    </form>
+                    </td>                                
+                </tr>
+                <?php endforeach; ?>
+                <!-- form for adding class to table -->
+                <form action="<?php $_SERVER["PHP_SELF"] ?>" method="post" >
+                <tr>
+                    <td><input name="courseID" type="text" id="courseID8" size="10"/></td>
+                    <td><input name="taken" type="text" id="taken8" size="4"/></td>
+                    <td><input name="grade" type="text" id="grade8" size="4"/></td>
+                    <input name="semester" type="hidden" id="semester" value="Spring 2018"/>                   
+                    <input name="courseName" type="hidden" id="courseName" value=""/>
+                    <input name="category" type="hidden" id="category" value=""/>
+                    <td>
+                    <button id="semester8add" name="action" value="+" type="submit" class="btn btn-default btn-circle">+<i class="fa fa-check"></i>
+                    </td>
+                </tr>
+                </form>
+            </table>
+            <span class="error" id="addclass8-note"></span> 
+        </div>
+
+
 
     <!-- Footer Navigation Bar-->
     <nav class="navbar navbar-expand-lg">      
@@ -287,7 +653,6 @@
      </nav>
 
     </div>
-    <div id="output">waiting for action</div>
 
 <script>
 
@@ -403,10 +768,10 @@
         ((btn.parentNode).parentNode.parentNode).removeChild(btn.parentNode.parentNode);
     }
 
-    document.getElementById("semester1add").addEventListener("click", function() 
-        {
-            addTableRow('1','semester1table','addclass1-note');
-        });
+    // document.getElementById("semester1add").addEventListener("click", function() 
+    //     {
+    //         addTableRow('1','semester1table','addclass1-note');
+    //     });
 
 </script>
 

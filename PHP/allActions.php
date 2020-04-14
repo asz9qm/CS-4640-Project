@@ -60,7 +60,6 @@ function logout()
 function addCourse($category, $email, $courseID, $courseName, $taken, $semester, $grade)
 {
     require('connect-db.php');
-    echo "running";
     $query = "INSERT INTO courses (category, email, courseID, courseName, taken, semester, grade)
          VALUES (:category, :email, :courseID, :courseName, :taken, :semester, :grade)";
 
@@ -74,7 +73,6 @@ function addCourse($category, $email, $courseID, $courseName, $taken, $semester,
     $statement->bindValue(':grade', $grade);
     $statement->execute();     
     $statement->closeCursor();
-    return 'it works';
     
 }
 
@@ -133,6 +131,65 @@ function getAllTasks($email, $category)
 	$statement->closecursor();
 	
 	return $results;
+}
+
+function getAllCoursesPerSemester($email, $semester)
+{
+    //return array of courses that match the specified semester
+    require('connect-db.php');
+    $query = "SELECT * FROM courses WHERE email = :email AND semester = :semester";
+    $statement = $db->prepare($query);
+    $statement->bindParam(':email', $email);
+    $statement->bindParam(':semester', $semester);
+    $statement->execute();
+    
+    // fetchAll() returns an array for all of the rows in the result set
+    $results = $statement->fetchAll();
+    
+    // closes the cursor and frees the connection to the server so other SQL statements may be issued
+    $statement->closecursor();
+    
+    return $results;
+}
+
+function checkTasks($email, $courseID)
+{
+    require('connect-db.php');
+	$query = "SELECT * FROM courses WHERE email = :email AND courseID = :courseID";
+    $statement = $db->prepare($query);
+    $statement->bindParam(':email', $email);
+    $statement->bindParam(':courseID', $courseID);
+	$statement->execute();
+	
+	// fetchAll() returns an array for all of the rows in the result set
+    $results = $statement->fetchAll();
+    
+	// closes the cursor and frees the connection to the server so other SQL statements may be issued
+	$statement->closecursor();
+    
+    if (!empty($results)){
+        return true;
+    }
+    
+	return false;
+}
+
+function getSameTask($email, $courseID)
+{
+    require('connect-db.php');
+	$query = "SELECT * FROM courses WHERE email = :email AND courseID = :courseID";
+    $statement = $db->prepare($query);
+    $statement->bindParam(':email', $email);
+    $statement->bindParam(':courseID', $courseID);
+	$statement->execute();
+	
+	// fetchAll() returns an array for all of the rows in the result set
+    $results = $statement->fetchAll();
+    
+	// closes the cursor and frees the connection to the server so other SQL statements may be issued
+	$statement->closecursor();
+    
+    return $results[0];
 }
 
 function getOneTask($id)
