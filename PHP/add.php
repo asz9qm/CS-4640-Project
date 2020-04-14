@@ -54,7 +54,7 @@
             {
                 header("Location: requirementsPage.php");
             }
-            else if (!empty($_POST['action']) && ($_POST['action'] == 'Submit Changes')){
+            else if (!empty($_POST['action'])){
                 //addCourse($category, $email, $courseID, $courseName, $taken, $semester, $grade)
                 addCourse($_POST['category'], $_SESSION["user"], $_POST['courseID'], $_POST['courseName'],
                  $_POST['taken'], $_POST['semester'], $_POST['grade']);

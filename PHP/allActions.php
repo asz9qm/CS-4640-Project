@@ -133,6 +133,34 @@ function getAllTasks($email, $category)
 	return $results;
 }
 
+function getStats($email)
+{
+    require('connect-db.php');
+	$query = "SELECT * FROM courses WHERE email = :email";
+    $statement = $db->prepare($query);
+    $statement->bindParam(':email', $email);
+	$statement->execute();
+	
+	// fetchAll() returns an array for all of the rows in the result set
+	$results = $statement->fetchAll();
+	
+	// closes the cursor and frees the connection to the server so other SQL statements may be issued
+    $statement->closecursor();
+    $categories = array("General" => 0, "Computing" => 0, "Integration" => 0, "College" => 0);
+    foreach ($results as $result):
+        if ($result['category'] == "General" && $result['semester'] == ""){
+            $categories['General'] = $categories['General'] + 1;}
+        if ($result['category'] == "Computing" && $result['semester'] == ""){
+            $categories['Computing'] = $categories['Computing'] + 1;}   
+        if ($result['category'] == "Integration" && $result['semester'] == ""){
+            $categories['Integration'] = $categories['Integration'] + 1;}
+        if ($result['category'] == "College" && $result['semester'] == ""){
+            $categories['College'] = $categories['College'] + 1;}
+    endforeach;
+	
+	return $categories;
+}
+
 function getAllCoursesPerSemester($email, $semester)
 {
     //return array of courses that match the specified semester
@@ -140,6 +168,9 @@ function getAllCoursesPerSemester($email, $semester)
     $query = "SELECT * FROM courses WHERE email = :email AND semester = :semester";
     $statement = $db->prepare($query);
     $statement->bindParam(':email', $email);
+    if ($semester == "Other"){
+        $semester = "";
+    }
     $statement->bindParam(':semester', $semester);
     $statement->execute();
     

@@ -73,15 +73,17 @@
     if (isset($_SESSION['user'])){
         if ($_SERVER['REQUEST_METHOD'] == 'GET')
         {
-            $semesters = array("Fall 2017", "Spring 2018", "Fall 2018", "Spring 2019", "Fall 2019", "Spring 2020", "Fall 2020", "Spring 2021");
+            //get info to fill arrays with
+            $semesters = array("Fall 2017", "Spring 2018", "Fall 2018", "Spring 2019", "Fall 2019", "Spring 2020", "Fall 2020", "Spring 2021", "Other");
             $semesters_results = array();
             foreach ($semesters as $semestername):
                 $semesters_results[$semestername] = getAllCoursesPerSemester($_SESSION['user'], $semestername);
             endforeach;
+            //get user stats
+            $stats = getStats($_SESSION['user']);
         }
         else if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['action'] == '+')
         {
-            echo "run else";
             $taskExists = checkTasks($_SESSION['user'], $_POST['courseID']);
             if ($_POST['taken'] == "Yes" || $_POST['taken'] == "Y"){
                 $_POST['taken'] = 1;
@@ -105,7 +107,7 @@
                 
                 // updateTaskInfo($result['id'], $_POST['category'], $_POST['courseID'], $_POST['courseName'], $_POST['taken'], $_POST['semester'], $_POST['grade']);
                 updateTaskInfo($result['id'], $_POST['category'], $_POST['courseID'], $_POST['courseName'],
-                 $_POST['taken'], $_POST['semester'], $_POST['grade']);
+                    $_POST['taken'], $_POST['semester'], $_POST['grade']);
                 $result = getSameTask($_SESSION['user'], $_POST['courseID']);
                 
                 header('Location: schedulePage.php');
@@ -118,17 +120,37 @@
         }
         else if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['action'] == 'X')
         {   
-            print_r($_POST);
+            //edit course to have clear all values
             $result = getSameTask($_SESSION['user'], $_POST['courseID']);
-            print_r($result);
-            deleteTask($result['id']);
+            updateTaskInfo($result['id'], $result['category'], $result['courseID'], $result['courseName'],
+                0, "", "");
             header('Location: schedulePage.php');
         }
     ?>
 
+
     <!-- Semester Container-->
-    <div class="container-fluid">
+    <div class="container-fluid">    
+        <div id="column" class="column">
+            <h3>Course Stats:</h3> 
+            <div id="row" class="row">
+            <div id="column" class="column">
+            General Requirements: <?php echo $stats['General']?>
+            </div>
+            <div id="column" class="column">
+            Computing Electives: <?php echo $stats['Computing']?>
+            </div>
+            <div id="column" class="column">
+            Integration Electives: <?php echo $stats['Integration']?>
+            </div>
+            <div id="column" class="column">
+            College Requirements: <?php echo $stats['College']?>
+            </div>
+            </div>
+        </div>
+        <div id = "column" class = "column">
         <div id = "row" class = "row">
+
         <!-- Semester 1 -->
         <div class="column">
                 <h1 id="semester1">Fall 2017</h1>
@@ -572,7 +594,7 @@
 
         <!-- Semester 8-->
         <div class="column">
-                <h1 id="semester1">Spring 2021</h1>
+            <h1 id="semester8">Spring 2021</h1>
             <table class="table table-striped table-bordered" style="width:100%" id = "semester1table">
                 <!-- Defining the Column Headers for CSS -->
                 <colgroup>
@@ -633,7 +655,76 @@
             <span class="error" id="addclass8-note"></span> 
         </div>
 
-
+        </div>
+    <!--- OTHER: Classes not yet taken and need to fulfilled --> 
+    <div id = "row" class = "row">
+        <h1 id="other">Other</h1>
+            <table class="table table-striped table-bordered" style="width:100%" id = "semester1table">
+                <!-- Defining the Column Headers for CSS -->
+                <colgroup>
+                    <col class="table1">
+                    <col class="table2">
+                    <col class="table3">
+                    <col class="table4">
+                </colgroup>
+                <!-- Column Names -->
+                <tr>
+                    <th>Mnemonic</th>
+                    <th>Category</th>
+                    <th style="text-align: center;">(Y)</th>
+                    <th>Grade</th>
+                    <th>(X)</th>
+                </tr>
+                <?php 
+                $other = $semesters_results["Other"];
+                foreach ($other as $course): 
+                ?>
+                <tr>
+                    <td>
+                        <?php echo $course['courseID']; // refer to column name in the table ?> 
+                    </td>
+                    <td>
+                        <?php echo $course['category']; ?> 
+                    </td>
+                    <td>
+                        <?php if($course['taken'] == 1){echo "Yes";}; ?> 
+                    </td>
+                    <td>
+                        <?php echo $course["grade"]; ?> 
+                    </td>                     
+                    <td>
+                    <form action="<?php $_SERVER["PHP_SELF"] ?>" method="post" >
+                        <input name="courseID" type="hidden" id="courseID8" size="10" value="<?=$course["courseID"]?>"/>
+                        <input name="taken" type="hidden" id="taken8" size="4" value="<?=$course['taken']?>"/>
+                        <input name="grade" type="hidden" id="grade8" size="4" value="<?=$course['grade']?>"/>
+                        <input name="semester" type="hidden" id="semester" value="Spring 2018"/>                   
+                        <input name="courseName" type="hidden" id="courseName" value=""/>
+                        <input name="category" type="hidden" id="category" value=""/>
+                        <input type=submit name="action" class='btn btn-default btn-circle' value='X'>
+                    </form>
+                    </td>                                
+                </tr>
+                <?php endforeach; ?>
+                <!-- form for adding class to table -->
+                <form action="<?php $_SERVER["PHP_SELF"] ?>" method="post" >
+                <tr>
+                    <td><input name="courseID" type="text" id="courseID8" size="10"/></td>
+                    <td><input name="category" type="text" id="category" value=""/></td>
+                    <td><input name="taken" type="text" id="taken8" size="4"/></td>
+                    <td><input name="grade" type="text" id="grade8" size="4"/></td>
+                    <input name="semester" type="hidden" id="semester" value="Spring 2018"/>                   
+                    <input name="courseName" type="hidden" id="courseName" value=""/>
+                    <td>
+                    <button id="semester8add" name="action" value="+" type="submit" class="btn btn-default btn-circle">+<i class="fa fa-check"></i>
+                    </td>
+                </tr>
+                </form>
+            </table>
+            <span class="error" id="addclass8-note"></span> 
+    </div>
+    </div>
+</div>
+</div>
 
     <!-- Footer Navigation Bar-->
     <nav class="navbar navbar-expand-lg">      
@@ -652,7 +743,10 @@
         </div>
      </nav>
 
-    </div>
+    
+    
+    
+
 
 <script>
 
