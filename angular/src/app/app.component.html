@@ -38,26 +38,26 @@
 
     <div class="container" style="text-align: center;">
       
-      <h3>
+      <h3 >
           Adding a Class
       </h3>
       <!-- a form -->
       <form #courseForm="ngForm" (ngSubmit)="onSubmit(courseForm.value)" name="editForm" method="post">
-            <div class="form-group">
+            <div [ngStyle] = "{'background-color':'lightgrey'}" class="form-group">
                 <label for="Category">Category of Course</label>
                 <select [(ngModel)]="courseModel.category" id="Category" name="category" class="form-control"> 
                     <option *ngFor="let element of categoriesArray">{{element}}</option>
                 </select>             
             </div>
-            <div class="form-group">
+            <div [ngStyle] = "{'background-color':'lightgrey'}" class="form-group">
                 <label for="courseID">Course Mnemonic</label>
                 <input [(ngModel)]="courseModel.courseID" type="text" class="form-control" id="courseID" name="courseID">
             </div>
-            <div class="form-group">
+            <div [ngStyle] = "{'background-color':'lightgrey'}" class="form-group">
                 <label for="Course name">Course Name</label>
                 <input [(ngModel)]="courseModel.courseName" type="text" class="form-control" id="courseName" name="courseName">
             </div>   
-            <div class="form-row">
+            <div [ngStyle] = "{'background-color':'lightgrey'}" class="form-row">
                 <div class="form-group col-md-4">
                     <label for="taken">Class Taken?</label>
                     <select [(ngModel)]="courseModel.taken" id="taken" name="taken" class="form-control"> 
@@ -82,7 +82,7 @@
                 </div>
             </div>   
           
-            <div *ngIf="done" class = "form-row-center">
+            <div *ngIf="done" [ngStyle] = "{'background-color':'lightblue'}" class = "form-row-center">
                 <hr/>
                 <h3>Class Change Confirmation</h3>
                 Confirmed:
@@ -96,7 +96,7 @@
             <div class="form-row-center">
                 <!-- *ngIf="courseID && courseName"  -->
                 <button *ngIf="!done" type="submit" (click)="confirmSubmit(courseForm.value)" value="submit" name="action" class="btn btn-primary">Submit Changes</button>
-                <input *ngIf="done" type="submit" value="Cancel" name="action" class="btn btn-secondary" />
+                <input *ngIf="done" type="submit" value="Close" name="action" class="btn btn-secondary" />
             </div>
         </form>          
     </div>    

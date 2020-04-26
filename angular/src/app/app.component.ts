@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import {Observable} from 'rxjs';
 import { Course } from './course';
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -30,20 +29,33 @@ export class AppComponent {
   courseModel = new Course("General Requirement", "Course Mnemonic", "Course Name", true, "", "");
   constructor(private http: HttpClient){ }
 
-  confirmSubmit(data:any): void{
-    console.log(data);
-    this.confirm_msg += data.courseID + data.courseName + " was added";
+  confirmSubmit(course: Course): void{
+    console.log(course);
+    this.confirm_msg += course.courseID + course.courseName + " was added";
     this.done = true;
-    console.log(data);
-    this.sendPost(data).subscribe(
-      res => {
+    console.log(course);
+
+     // Convert the form data to json format
+    //  let params = JSON.stringify(course);
+    //  console.log(params);
+
+     // To send a GET request, use the concept of URL rewriting to pass data to the backend
+     // this.http.get<Order>('http://localhost/cs4640/inclass11/ngphp-get.php?str='+params)
+     // To send a POST request, pass data as an object
+    this.sendPost(course).subscribe(
+      res=>{
         console.log(res);
       }
-    );
-    // let headers = new Headers({ 'Content-Type': 'application/json' });
-    // let params = JSON.stringify(data);
-    // this.http.post<Course>('http://localhost/CS-4640-Project/PHP/addCourse.php', params, Course);
-    // console.log(data);
+    )
+     //  return this.http.post<Course>('http://localhost/CS-4640-Project/PHP/ngphp-post.php', course);
+    //  .subscribe((data2) => {
+    //       // Receive a response successfully, do something here
+    //       // console.log('Response from backend ', data);
+    //       this.responsedata = data2;     // assign response to responsedata property to bind to screen later
+    //  }, (error) => {
+    //       // An error occurs, handle an error in some way
+    //       console.log('Error ', error);
+    //  })
   }
 
   onSubmit(form: any): void {
@@ -64,24 +76,19 @@ export class AppComponent {
 
   }
 
-  sendPost(data: Course): Observable<Course[]>{ //send post to PHP
-    console.log("HEY");
-    console.log(data);
-    console.log("HEY");
-    console.log('You submitted: ', data);
-    this.data_submitted = data;
+  sendPost(data: any): Observable<any>{ //send post to PHP
+  //   console.log("HEY");
+  //   console.log(data);
+  //   console.log("HEY");
+  //   console.log('You submitted: ', data);
+  //   this.data_submitted = data;
 
-    // Convert the form data to json format
-    let params = JSON.stringify(data);
+  //   // Convert the form data to json format
+  //   let params = JSON.stringify(data);
+  //   console.log(params);
 
-    return this.http.post('http://localhost/CS-4640-Project/PHP/addCourse.php', { data: data })
-    .pipe(map((res) => {
-      this.cars.push(res['data']);
-      return this.cars;
-    }),
-    catchError(this.handleError));
-}
-    console.log(data);
+    return this.http.post('http://localhost/CS-4640-Project/PHP/ngphp-post.php', data);
+  //   console.log(data);
   }
 
   // subPost(data:any){ //send request to PHP script
