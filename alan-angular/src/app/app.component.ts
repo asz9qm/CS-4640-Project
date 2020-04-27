@@ -56,7 +56,7 @@ export class AppComponent {
       }
     )
 
-    // setTimeout(function(){ window.location.href = "http://localhost/CS-4640-Project/PHP/requirementsPage.php"; }, 2000);
+    setTimeout(function(){ window.location.href = "http://localhost/CS-4640-Project/PHP/requirementsPage.php"; }, 4000);
     
   }
 
