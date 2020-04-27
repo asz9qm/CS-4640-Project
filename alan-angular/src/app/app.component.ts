@@ -43,6 +43,9 @@ export class AppComponent {
 
   }
 
+  redirect(): void{
+    window.location.href = "http://localhost/CS-4640-Project/PHP/requirementsPage.php";
+  }
   confirmSubmit(course: Course): void{
     
     // submits and send post information to post file
@@ -56,7 +59,7 @@ export class AppComponent {
       }
     )
 
-    setTimeout(function(){ window.location.href = "http://localhost/CS-4640-Project/PHP/requirementsPage.php"; }, 4000);
+    setTimeout(function(){ window.location.href = "http://localhost/CS-4640-Project/PHP/requirementsPage.php"; }, 10000);
     
   }
 

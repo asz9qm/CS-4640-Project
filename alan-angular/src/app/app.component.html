@@ -119,7 +119,7 @@
             <!-- Submission buttons -->
             <div [ngClass] = "'boxSpacing'" class="form-row-center">
                 <button *ngIf="!done" type="submit" (click)="confirmSubmit(courseForm.value)" value="submit" name="action" class="btn btn-primary">Submit Changes</button>
-                <input *ngIf="done" type="submit" value="Close" name="action" class="btn btn-secondary" />
+                <input *ngIf="done" type="submit" (click)="redirect()" value="Close" name="action" class="btn btn-secondary" />
             </div>
         </form>          
     </div>
