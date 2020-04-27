@@ -1,4 +1,4 @@
-//written by Jennifer Liao
+//written by Jennifer Liao, tested by Alan Zhai
 window.onload =updateStats(); //initial update on the page
 function updateStats(){
     //update Stats on each course change

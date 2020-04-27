@@ -1,4 +1,5 @@
-<?php
+<?php 
+//written by Alan Zhai and Jennifer Liao
 //used to allow for the angular front end to add classes
 session_start();
 

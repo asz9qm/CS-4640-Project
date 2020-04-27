@@ -1,5 +1,5 @@
 <?php
-
+//written by Jennifer Liao and Alan Zhai
 //contains all the functions that we used and need for php
 
 //creates the basic user table
