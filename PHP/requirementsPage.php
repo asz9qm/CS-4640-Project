@@ -354,7 +354,7 @@
               <a class="nav-link" href="loginPage.php">Account</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" a href="requirementsPage.php">Requirements</a>
+              <a class="nav-link" href="requirementsPage.php">Requirements</a>
             </li>
           </ul>
         </div>

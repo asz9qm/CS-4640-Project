@@ -2,6 +2,7 @@
 //used to allow for the angular front end to add classes
 session_start();
 
+header('Access-Control-Allow-Credentials: true');
 header('Access-Control-Allow-Origin: http://localhost:4200');
 // header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Headers: X-Requested-With, Content-Type, Origin, Authorization, Accept, Client-Security-Token, Accept-Encoding');
@@ -48,8 +49,11 @@ function addCourse($category, $email, $courseID, $courseName, $taken, $semester,
     $statement->closeCursor();
     
 }
+if(isset($request->email))
+{
+  addCourse($request->category, $request->email, $request->courseID, $request->courseName, $request->taken,$request->semester,$request->grade);
+}
 
-addCourse($request->category, "asz9qm@virginia.edu", $request->courseID, $request->courseName, $request->grade,$request->semester,$request->taken);
 
 // Send response (in json format) back the front end
 echo json_encode(['content'=>$data]);
