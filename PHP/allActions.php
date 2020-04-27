@@ -199,7 +199,7 @@ function getStats($email)
                     $grade = 0.0;  
                   break;       
             }
-            if ($grade != 0){
+            if (($grade != 0) || ($result['grade'] == "F")){
                 $categories['GPA'] += $grade*3;
                 $categories['credits'] += 3;
             }

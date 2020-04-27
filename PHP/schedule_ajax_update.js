@@ -1,3 +1,4 @@
+//written by Jennifer Liao
 window.onload =updateStats(); //initial update on the page
 function updateStats(){
     //update Stats on each course change
