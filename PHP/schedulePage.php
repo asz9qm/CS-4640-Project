@@ -82,7 +82,6 @@
                 $semesters_results[$semestername] = getAllCoursesPerSemester($_SESSION['user'], $semestername);
             endforeach;
             //get user stats
-            $stats = getStats($_SESSION['user']);
         }
         else if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['action'] == '+')
         {
@@ -133,20 +132,25 @@
 
     <!-- Semester Container-->
     <div class="container-fluid">    
-        <div id="column" class="column">
-            <h3>Course Stats:</h3> 
+        <div id="courseStats" class="column">
+            <div>
+            <h3 class='Sameline'>Course Stats:</h3> 
+            <div class='Sameline' id="gpa" class="column">
+            <!-- GPA Calculation  -->
+            </div>
+            </div>
             <div id="row" class="row">
-            <div id="column" class="column">
-            General Requirements: <?php echo $stats['General']?>
+            <div id="generalReq" class="column">
+            <!-- General Requirements:  -->
             </div>
-            <div id="column" class="column">
-            Computing Electives: <?php echo $stats['Computing']?>
+            <div id="computingReq" class="column">
+            <!-- Computing Electives:  -->
             </div>
-            <div id="column" class="column">
-            Integration Electives: <?php echo $stats['Integration']?>
+            <div id="integrationReq" class="column">
+            <!-- Integration Electives:  -->
             </div>
-            <div id="column" class="column">
-            College Requirements: <?php echo $stats['College']?>
+            <div id="collegeReq" class="column">
+            <!-- College Requirements:  -->
             </div>
             </div>
         </div>
@@ -686,7 +690,7 @@
     
     
 
-
+<script src="schedule_ajax_update.js"></script>
 <script>
 
     addRow = (addsemester, addtable, addClassNote) =>

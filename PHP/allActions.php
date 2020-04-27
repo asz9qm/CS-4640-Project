@@ -157,8 +157,53 @@ function getStats($email)
 	
 	// closes the cursor and frees the connection to the server so other SQL statements may be issued
     $statement->closecursor();
-    $categories = array("General" => 0, "Computing" => 0, "Integration" => 0, "College" => 0);
+    $categories = array("General" => 0, "Computing" => 0, "Integration" => 0, "College" => 0, "GPA"=>0, "credits"=>0);
     foreach ($results as $result):
+        if ($result['grade']){
+            $grade = 0.0;
+            switch ($result['grade']){
+                case ($result['grade'] == "A+") || ($result['grade'] == "A"):
+                    $grade += 4.0;
+                  break;
+                case $result['grade'] == "A-":
+                    $grade += 3.7;
+                  break;
+                case $result['grade'] == "B+":
+                    $grade += 3.3;
+                  break;
+                case $result['grade'] == "B":
+                    $grade += 3.0;
+                  break;
+                case $result['grade'] == "B-":
+                    $grade = 2.7;
+                  break;
+                case $result['grade'] == "C+":
+                    $grade = 2.3;
+                  break;
+                case $result['grade'] == "C":
+                    $grade = 2.0;
+                  break;
+                case $result['grade'] == "C-":
+                    $grade = 1.7;
+                  break;
+                case $result['grade'] == "D+":
+                    $grade = 1.3;
+                  break;
+                case $result['grade'] == "D":
+                    $grade = 1.0;
+                  break;
+                case $result['grade'] == "D-":
+                    $grade = 0.7;
+                  break;
+                case $result['grade'] == "F":       
+                    $grade = 0.0;  
+                  break;       
+            }
+            if ($grade != 0){
+                $categories['GPA'] += $grade*3;
+                $categories['credits'] += 3;
+            }
+        }
         if ($result['category'] == "General" && $result['semester'] == ""){
             $categories['General'] = $categories['General'] + 1;}
         if ($result['category'] == "Computing" && $result['semester'] == ""){
@@ -319,13 +364,13 @@ function deleteTask($id)
     
 // }
 
+//move the following underneath ? > (get rid of all spaces between ? >) and follow the instructions
+// <!-- Uncomment this part and click the button to set up, then recomment this -->
+// <!-- <html>
+//     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);? >" name="setup" method="post">
+//     <button type="submit" class="btn btn-primary">Submit</button>
+// </form>
+// </html> -->
 
 ?>
-
-<!-- Uncomment this part and click the button to set up, then recomment this -->
-<!-- <html>
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" name="setup" method="post">
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-</html> -->
 
