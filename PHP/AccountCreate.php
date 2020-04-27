@@ -10,11 +10,7 @@
   </style>
 
     <head>
-    <!-- tried to google login but that isn't working right now -->
-    <!-- <meta name="google-signin-scope" content="profile email">
-    <meta name="google-signin-client_id" content="763652494101-tlmv0rv7an6bj872o37gkip2q9ho5fhp.apps.googleusercontent.com">
-    <link rel="stylesheet" href="../CSS/login.css">
-    <script src="https://apis.google.com/js/platform.js" async defer></script> -->
+    
     <title>Login Page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
@@ -54,8 +50,10 @@
     </nav>
 
   <?php 
+  
     if ($_SERVER["REQUEST_METHOD"] == "POST") 
     {
+      //creating the user in the database
       $email = $_POST['Email1'];
       $pass = password_hash($_POST['pass1'], PASSWORD_BCRYPT);
       $year = (int)$_POST['year'];
@@ -69,8 +67,10 @@
       $check = sizeof($results);
       $statement->closecursor();
 
+      //making sure that the user doesn't exist in the database already
       if ($check == 0)
       {
+        
         $_POST['taken'] = 0;
         $query = "INSERT INTO users (email, pass, schoolyear, major) VALUES (:email, :pass, :schoolyear, :major)";
         $statement = $db->prepare($query);
@@ -80,6 +80,7 @@
         $statement->bindValue(':major', $major);
         $statement->execute();
         $statement->closeCursor();
+        //creates all the basic coursework for the user
         createBasicCourseWork($email);
 
         
@@ -101,8 +102,9 @@
                 <h3>
                     Sign Up
                 </h3>
+                <!-- registration form -->
                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" name="RegisterForm" method="post" onsubmit="return checkRegistration()">
-                <!-- <input type="hidden" id="taken" name="taken"> -->
+                
                     <div class="form-group">
                       <label for="exampleInputEmail1">Email address</label>
                       <input type="email" class="form-control" name="Email1" id="Email1" aria-describedby="emailHelp" placeholder="Enter email" >
@@ -169,14 +171,15 @@
 
   </div>
 
+  <!-- type checking and form validation using javascript -->
   <script>
-
+  // checking that the year is a string
   function isInt(str)
   {
     var val = parseInt(str);
     return (val > 0);
   }
-
+  // checking that the email is an email
   function isEmail(str)
   {
     var re = /\S+@\S+\.\S+/;
@@ -184,6 +187,7 @@
     return match_test;
   }
 
+  //making sure that all elements are filled out
   function checkRegistration()
   {
     var email = document.getElementById("Email1").value;

@@ -1,6 +1,7 @@
 <html>
 
   <?php 
+  //the login page
     
     require('connect-db.php');
     require('allActions.php');
@@ -65,7 +66,7 @@
    </nav>
 
    <?php
-   
+   //checks to see if user is logged in
     if (!isset($_SESSION['user'])){
 
    ?>
@@ -154,7 +155,7 @@
   }
   else
   {
-    echo $_SESSION["user"];?>
+  ?>
     <script>
       localStorage.setItem("user", '<?php echo $_SESSION["user"];?>');
       sessionStorage.setItem("user", "<?php echo $_SESSION["user"];?>");
@@ -165,7 +166,7 @@
 
 
 <?php 
- 
+ //if user is logged in, changes the page to change user information page
 $user_info = getUserInfo($_SESSION['user']);
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
   if (!empty($_POST['action2']) && ($_POST['action2'] == 'Yes'))

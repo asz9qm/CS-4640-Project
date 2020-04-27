@@ -1,4 +1,5 @@
 <html>
+    <!-- this is used to change the password for the user -->
     <?php
     require('connect-db.php'); 
     require("allActions.php");
@@ -51,26 +52,32 @@
      </nav>
 
     <?php
+    //checks that the user is signed in
     if (isset($_SESSION['user']))
     {
         $user_info = getUserInfo($_SESSION['user']);
                 
         if ($_SERVER["REQUEST_METHOD"] == "POST")
         {
+            //when the user cancels 
             if (!empty($_POST['action']) && ($_POST['action'] == 'Cancel'))
             {
                 header("Location: requirementsPage.php");
             }
+            //when the user doesn't cancel
             else
             {
                 if( !empty($_POST['pass1']) && !empty($_POST['pass']) && !empty($_POST['pass2']))
                 {
+                    //meant to be used to allow for error checking
                     if (isset($_SESSION["pass"]))
                     {
                         unset($_SESSION["pass"]);
                     }
+                    //checks that both passwords match
                     if( $_POST['pass1'] == $_POST['pass2'] && (password_verify($_POST['pass'], $user_info[0]['pass'])))
                     {
+                        
                         $email = $_SESSION['user'];
                         $pass = password_hash($_POST['pass1'], PASSWORD_BCRYPT);
                         $query = "UPDATE users SET pass=:pass WHERE email=:email";
@@ -83,6 +90,7 @@
                         header("Location: requirementsPage.php");
                     }
                 }
+                //shows the error message
                 else {
                     $_SESSION["pass"] = "yes";
                 }

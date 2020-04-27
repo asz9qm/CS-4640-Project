@@ -1,4 +1,5 @@
 <html>
+<!-- edits the class -->
     <?php 
     require("allActions.php");
     session_start();
@@ -45,7 +46,9 @@
      </nav>
 
     <?php
+    //checks that the user is logged in
     if (isset($_SESSION['user'])){
+        //checks that there is a course set to edit
         if (!isset($_SESSION['id']))
         {
             echo '<h1 style="text-align:center">There was nothing set to edit, taking you back to the requirements page</h1>';
@@ -55,6 +58,7 @@
         {
             $class = getOneTask($_SESSION['id']);
         }
+        //checks for post
         if ($_SERVER["REQUEST_METHOD"] == "POST")
         {
             if (!empty($_POST['action']) && ($_POST['action'] == 'Cancel'))

@@ -18,7 +18,7 @@ export class AppComponent {
   
   //-----------------Form answer setups-----------------//
   categoriesArray = [
-    "General Requirement", "Computing Elective", "Integration Elective", "College Requirement"
+    "General", "Computing", "Integration", "College"
   ]
   semestersArray = [
     "Fall 2017", "Spring 2018", "Fall 2018", "Spring 2019", "Fall 2019", "Spring 2020", 
@@ -56,6 +56,8 @@ export class AppComponent {
         console.log(res);
       }
     )
+    setTimeout(function(){ window.location.href = "http://localhost/CS-4640-Project/PHP/requirementsPage.php"; }, 2000);
+    
   }
 
   sendPost(data: any): Observable<any>{ 

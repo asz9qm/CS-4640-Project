@@ -1,4 +1,5 @@
 <?php
+//used to allow for the angular front end to add classes
 session_start();
 
 header('Access-Control-Allow-Origin: http://localhost:4200');

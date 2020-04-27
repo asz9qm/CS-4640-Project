@@ -1,4 +1,5 @@
 <html>
+<!-- the page that is meant to allow for the user to delete items -->
     <?php 
     require("allActions.php");
     session_start();
@@ -46,22 +47,26 @@
 
 
     <?php
+    //checks that the user is logged in
     if (isset($_SESSION['user'])){
+        //checks that the user accessed the page with an id set to delete
         if (!isset($_SESSION['id'])){
             echo '<h1 style="text-align:center" >There was nothing set to delete, taking you back to the requirements page</h1>';
             header('refresh:2; url=requirementsPage.php');
         }
         else{
+            //pulls the information on the class that is going to be deleted
             $class = getOneTask($_SESSION['id']);
         }
         
         if ($_SERVER["REQUEST_METHOD"] == "POST")
         {
+            //deletes the class is the user clicks yes
             if (!empty($_POST['action']) && ($_POST['action'] == 'Yes'))
             {
                 deleteTask($_SESSION['id']);
             }            
-            
+            // returns the user to the requirements page
             header('Location: requirementsPage.php');
 
         }

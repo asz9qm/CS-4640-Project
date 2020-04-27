@@ -1,4 +1,5 @@
 <html>
+<!-- the requirements page -->
     <?php session_start(); ?>
     <head>
         <title>Requirements Page</title>
@@ -42,6 +43,7 @@
      </nav>
 
     <?php
+    // checks that the user is logged in
     if (isset($_SESSION['user'])){
     ?>
 

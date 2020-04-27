@@ -1,6 +1,8 @@
 <?php
 
+//contains all the functions that we used and need for php
 
+//creates the basic user table
 function createUserTable()
 {
    require('connect-db.php');
@@ -18,6 +20,7 @@ function createUserTable()
 
 }
 
+//creates the basic course table
 function createCourseTable()
 {
     require('connect-db.php');
@@ -37,6 +40,8 @@ function createCourseTable()
     $statement->closeCursor();
 }
 
+
+//allows for the user to logout
 function logout()
 {
     session_start();
@@ -56,7 +61,7 @@ function logout()
 
 
 
-
+//adds a course into the database, not currently being used as we used angular to perform the request
 function addCourse($category, $email, $courseID, $courseName, $taken, $semester, $grade)
 {
     require('connect-db.php');
@@ -76,8 +81,10 @@ function addCourse($category, $email, $courseID, $courseName, $taken, $semester,
     
 }
 
+//creates the basic coursework for all users when they register for the site
 function createBasicCourseWork($user)
 {
+    //general cs classes
     addCourse("General", $user, "CS 1110", "Introduction to Programming", 0, "", "");
     addCourse("General", $user, "CS 2102", "Discrete Mathematics", 0, "", "");
     addCourse("General", $user, "CS 2110", "Software Development Methods", 0, "", "");
@@ -85,16 +92,19 @@ function createBasicCourseWork($user)
     addCourse("General", $user, "CS 3330", "Computer Architecture", 0, "", "");
     addCourse("General", $user, "CS 4102", "Algorithms", 0, "", "");
 
+    //computing electives
     addCourse("Computing", $user, "", "Computing Elective 1", 0, "", "");
     addCourse("Computing", $user, "", "Computing Elective 2", 0, "", "");
     addCourse("Computing", $user, "", "Computing Elective 3", 0, "", "");
     addCourse("Computing", $user, "", "Computing Elective 4", 0, "", "");
 
+    //integration electives
     addCourse("Integration", $user, "", "Integration Elective 1", 0, "", "");
     addCourse("Integration", $user, "", "Integration Elective 2", 0, "", "");
     addCourse("Integration", $user, "", "Integration Elective 3", 0, "", "");
     addCourse("Integration", $user, "", "Integration Elective 4", 0, "", "");
 
+    //general college requirements
     addCourse("College", $user, "", "First Writing Requirement", 0, "", "");
     addCourse("College", $user, "", "Second Writing Requirement", 0, "", "");
     addCourse("College", $user, "", "Foreign Language Requirement 1", 0, "", "");
@@ -115,6 +125,7 @@ function createBasicCourseWork($user)
 
 }
 
+//meant to get all the courses that have the same email and category
 function getAllTasks($email, $category)
 {
     require('connect-db.php');
@@ -161,6 +172,7 @@ function getStats($email)
 	return $categories;
 }
 
+//gets the courses per semester
 function getAllCoursesPerSemester($email, $semester)
 {
     //return array of courses that match the specified semester
@@ -183,6 +195,7 @@ function getAllCoursesPerSemester($email, $semester)
     return $results;
 }
 
+//verifies that there are no duplicates
 function checkTasks($email, $courseID)
 {
     require('connect-db.php');
@@ -205,6 +218,7 @@ function checkTasks($email, $courseID)
 	return false;
 }
 
+//returns the course that matches the information
 function getSameTask($email, $courseID)
 {
     require('connect-db.php');
@@ -223,6 +237,7 @@ function getSameTask($email, $courseID)
     return $results[0];
 }
 
+//gets the course based on the course id which is a unqiue identifier
 function getOneTask($id)
 {
     require('connect-db.php');
@@ -240,6 +255,7 @@ function getOneTask($id)
 	return $results;
 }
 
+//pulls the user information from the user database
 function getUserInfo($email)
 {
     require('connect-db.php');
@@ -257,7 +273,7 @@ function getUserInfo($email)
 	return $results;
 }
 
-
+//used to update the task
 function updateTaskInfo($id, $category, $courseID, $courseName, $taken, $semester, $grade)
 {
 	require('connect-db.php');
@@ -279,6 +295,7 @@ function updateTaskInfo($id, $category, $courseID, $courseName, $taken, $semeste
 	$statement->closeCursor();
 }
 
+//used to delete the task
 function deleteTask($id)
 {
 	require('connect-db.php');
@@ -290,6 +307,9 @@ function deleteTask($id)
 	$statement->closeCursor();
 }
 
+
+//this stuff down here is meant for setup of the database 
+//meant to be fast and convienent
 
 //uncomment this part and then recomment after clicking button
 // if ($_SERVER["REQUEST_METHOD"] == "POST")

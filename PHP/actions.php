@@ -6,6 +6,8 @@
 ?>
 
 <?php  
+// the template that we used to create all the other php actions
+// kept inside the direction as we wanted to reference it
 /*************************/
 /** get data **/
 function selectData()

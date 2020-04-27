@@ -1,4 +1,5 @@
 <html>
+<!-- the log out function -->
     <?php 
     require("allActions.php");
     if ($_SERVER['REQUEST_METHOD'] == 'GET')

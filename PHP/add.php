@@ -1,4 +1,5 @@
 <html>
+<!-- no longer being used, adding a course has been changed such that it is hosted on angular -->
     <?php 
     require("allActions.php");
     session_start();
