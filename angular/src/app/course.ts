@@ -5,6 +5,7 @@ export class Course {
         public courseName: string,
         public taken: boolean,
         public semester: string,
-        public grade: string
+        public grade: string,
+        public email: string,
     ){}
 }

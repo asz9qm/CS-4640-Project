@@ -23,13 +23,13 @@
         <div class="collapse navbar-collapse" id="navbar-collapse">
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item active">
-              <a class="nav-link" href="../../../PHP/schedulePage.php">Home<span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="http://localhost/CS-4640-Project/PHP/schedulePage.php">Home<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../../../PHP/loginPage.php">Account</a>
+              <a class="nav-link" href="http://localhost/CS-4640-Project/PHP/loginPage.php">Account</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" a href="../../../PHP/requirementsPage.php">Requirements</a>
+              <a class="nav-link" a href="http://localhost/CS-4640-Project/PHP/requirementsPage.php">Requirements</a>
             </li>
           </ul>
         </div>
@@ -43,10 +43,13 @@
                 Adding a Class
             </h3>
         </div>
+        
       <!-- a form -->
-      <form #courseForm="ngForm" (ngSubmit)="onSubmit(courseForm.value)" name="editForm" method="post">
+      <form #courseForm="ngForm" name="editForm" method="post">
         <div [ngClass]="'form'">
+
             <div [ngClass] = "'boxSpacing'" class="form-group">
+                <!-- Category-->
                 <div [ngStyle] = "{'background-color':'lightgrey', 'font-weight':'bold'}">
                     <label for="Category">Category of Course</label>
                 </div>
@@ -54,20 +57,26 @@
                     <option *ngFor="let element of categoriesArray">{{element}}</option>
                 </select>             
             </div>
+            
             <div [ngClass] = "'boxSpacing'" class="form-group">
+                <!-- courseID -->
                 <div [ngStyle] = "{'background-color':'lightgrey', 'font-weight':'bold'}">
                     <label for="courseID">Course Mnemonic</label>
                 </div>
                 <input [(ngModel)]="courseModel.courseID" type="text" class="form-control" id="courseID" name="courseID">
             </div>
+
             <div [ngClass] = "'boxSpacing'" class="form-group">
+                <!-- courseName -->
                 <div [ngStyle] = "{'background-color':'lightgrey', 'font-weight':'bold'}">                
                     <label for="Course name">Course Name</label>
                 </div>
                 <input [(ngModel)]="courseModel.courseName" type="text" class="form-control" id="courseName" name="courseName">
             </div>   
+
             <div [ngClass] = "'boxSpacing'" class="form-row">
                 <div class="form-group col-md-4">
+                    <!-- taken -->
                     <div [ngStyle] = "{'background-color':'lightgrey', 'font-weight':'bold'}">                
                         <label for="taken">Class Taken?</label>
                     </div>
@@ -77,7 +86,9 @@
 
                     </select>
                 </div>
+
                 <div class="form-group col-md-4">
+                    <!-- semester -->
                     <div [ngStyle] = "{'background-color':'lightgrey', 'font-weight':'bold'}">                
                         <label for="semester">Semester</label>
                     </div>
@@ -86,7 +97,9 @@
                         <option *ngFor="let element of semestersArray">{{element}}</option>
                     </select>                    
                 </div>
+
                 <div class="form-group col-md-4">
+                    <!-- grade -->
                     <div [ngStyle] = "{'background-color':'lightgrey', 'font-weight':'bold'}">                
                         <label for="grade">Grade</label>
                     </div>
@@ -95,6 +108,10 @@
                         <option *ngFor="let element of gradesArray">{{element}}</option>
                     </select>
                 </div>
+
+                <!-- hidden email input -->
+                <input [(ngModel)]="courseModel.email" type="hidden" class="form-control" id="email" name="email">
+
             </div>   
         </div>
             <!-- Confirmation message box display -->
@@ -109,12 +126,18 @@
                 <hr/>
                 
             </div>
+
             <!-- Submission buttons -->
             <div [ngClass] = "'boxSpacing'" class="form-row-center">
                 <button *ngIf="!done" type="submit" (click)="confirmSubmit(courseForm.value)" value="submit" name="action" class="btn btn-primary">Submit Changes</button>
-                <input *ngIf="done" type="submit" value="Close" name="action" class="btn btn-secondary" />
+                <input *ngIf="done" type="submit" (click)="redirect()" value="Close" name="action" class="btn btn-secondary" />
             </div>
         </form>          
-    </div>    
+    </div>
+    <script>
+        console.log("help");
+        console.log(sessionStorage.getItem("user"));
+        console.log("Hello");
+    </script>    
 
 </html>

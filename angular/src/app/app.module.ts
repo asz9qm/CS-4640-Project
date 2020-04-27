@@ -5,6 +5,8 @@ import {FormsModule} from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
+import { SESSION_STORAGE, StorageServiceModule } from "ngx-webstorage-service";
+
 
 
 @NgModule({
@@ -15,7 +17,8 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    StorageServiceModule
   ],
   providers: [],
   bootstrap: [AppComponent]

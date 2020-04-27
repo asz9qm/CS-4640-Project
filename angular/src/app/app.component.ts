@@ -17,7 +17,7 @@ export class AppComponent {
   
   //-----------------Form answer setups-----------------//
   categoriesArray = [
-    "General Requirement", "Computing Elective", "Integration Elective", "College Requirement"
+    "General", "Computing", "Integration", "College"
   ]
   semestersArray = [
     "Fall 2017", "Spring 2018", "Fall 2018", "Spring 2019", "Fall 2019", "Spring 2020", 
@@ -26,39 +26,43 @@ export class AppComponent {
   gradesArray = [
     "A+", "A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-", "F", "CR", "NC"
   ]
+  //----------------------------------------------------//
+  
   // creating course object to bind to and from
-  responsedata = new Course("", "", "", true, "", "");
-  courseModel = new Course("General Requirement", "Course Mnemonic", "Course Name", true, "", "");
-  constructor(private http: HttpClient){ }
+  responsedata = new Course("", "", "", true, "", "", "");
+  courseModel = new Course("General Requirement", "Course Mnemonic", "Course Name", true, "", "", "");
 
+  constructor(private http: HttpClient){ 
+    this.setUser2(this.courseModel);
+  }
+
+  setUser2(course: Course): void{ //git user email
+    this.http.get('http://localhost/CS-4640-Project/PHP/getUser.php',{withCredentials:true})
+    .subscribe(
+    (data)=>{
+      course["email"]=(data["user"]);
+    });
+
+  }
+
+  redirect(): void{
+    window.location.href = "http://localhost/CS-4640-Project/PHP/requirementsPage.php";
+  }
   confirmSubmit(course: Course): void{
+    
     // submits and send post information to post file
-    console.log(course);
     this.confirm_msg += course.courseID + " " + course.courseName + " was added";
     this.done = true;
-    console.log(course);
 
+    // console.log(course);
     this.sendPost(course).subscribe(
       res=>{
         console.log(res);
       }
     )
-  }
 
-  onSubmit(form: any): void {
-    // doesn't do anything
-    console.log('You submitted: ', form);
-    this.data_submitted = form;
-
-    // Convert the form data to json format
-    let params = JSON.stringify(form);
-
-    this.http.post<Course>('http://localhost/CS-4640-Project/PHP/ngphp-post.php', params)
-    .subscribe((data) => {
-      this.responsedata = data;
-    }, (error) => {
-      console.log('Error ', error);
-    })
+    setTimeout(function(){ window.location.href = "http://localhost/CS-4640-Project/PHP/requirementsPage.php"; }, 10000);
+    
   }
 
   sendPost(data: any): Observable<any>{ 
