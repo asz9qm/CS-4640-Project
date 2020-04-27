@@ -1,0 +1,25 @@
+.confirmation{
+    color : red;
+}
+
+.title {
+    padding-top: 15px;
+    padding-bottom: 20px;
+}
+
+.titleText {
+    display: inline;
+    padding: 4px;
+    border-style: double;
+}
+
+.boxSpacing {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.form{
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: #F0F0F0;
+}

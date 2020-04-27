@@ -1,9 +1,15 @@
 <html>
 
   <?php 
+    
     require('connect-db.php');
     require('allActions.php');
     session_start();
+    header('Access-Control-Allow-Origin: http://localhost:4200');
+    // header('Access-Control-Allow-Origin: *');
+    header('Access-Control-Allow-Headers: X-Requested-With, Content-Type, Origin, Authorization, Accept, Client-Security-Token, Accept-Encoding');
+    header('Access-Control-Max-Age: 1000');
+    header('Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE, PUT');
   ?>
 
   <style>
@@ -90,6 +96,10 @@
           {
             session_start();
             $_SESSION['user'] = $email;
+            
+            
+            
+  
             header("Location: requirementsPage.php");
           } 
         }
@@ -144,6 +154,13 @@
   }
   else
   {
+    echo $_SESSION["user"];?>
+    <script>
+      localStorage.setItem("user", '<?php echo $_SESSION["user"];?>');
+      sessionStorage.setItem("user", "<?php echo $_SESSION["user"];?>");
+      console.log(sessionStorage.getItem("user"));
+    </script>
+    <?php
   ?>
 
 

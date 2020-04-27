@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 header('Access-Control-Allow-Origin: http://localhost:4200');
 // header('Access-Control-Allow-Origin: *');
@@ -13,6 +14,8 @@ $content_length = (int) $_SERVER['CONTENT_LENGTH'];
 // retrieve data from the request
 $postdata = file_get_contents("php://input");
 
+$data = json_decode(file_get_contents("php://input"));
+
 // Process data
 // (this example simply extracts the data and restructures them back)
 
@@ -25,6 +28,27 @@ foreach ($request as $k => $v)
 {
   $data[0]['post_'.$k] = $v;
 }
+
+function addCourse($category, $email, $courseID, $courseName, $taken, $semester, $grade)
+{
+    require('connect-db.php');
+    $query = "INSERT INTO courses (category, email, courseID, courseName, taken, semester, grade)
+         VALUES (:category, :email, :courseID, :courseName, :taken, :semester, :grade)";
+
+	  $statement = $db->prepare($query);
+	  $statement->bindValue(':category', $category);
+	  $statement->bindValue(':email', $email);
+    $statement->bindValue(':courseID', $courseID);
+    $statement->bindValue(':courseName', $courseName);
+    $statement->bindValue(':taken', $taken);
+    $statement->bindValue(':semester', $semester);
+    $statement->bindValue(':grade', $grade);
+    $statement->execute();     
+    $statement->closeCursor();
+    
+}
+
+addCourse($request->category, "asz9qm@virginia.edu", $request->courseID, $request->courseName, $request->grade,$request->semester,$request->taken);
 
 // Send response (in json format) back the front end
 echo json_encode(['content'=>$data]);

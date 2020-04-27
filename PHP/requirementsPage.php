@@ -70,7 +70,7 @@
             }
             if (!empty($_POST['action']) && ($_POST['action'] == 'Click Here'))
             { 
-                header("Location: add.php");
+                header("Location: http://localhost:4200/");
             }
         }
     ?>
@@ -418,6 +418,9 @@
         echo '<h5 style="text-align:center">You need to log in first before viewing this page <a href="LoginPage.php" ></br/><button class="btn btn-primary">Log in</button></a></h5>';
     }
     ?>
+    <script>
+      console.log(sessionStorage.getItem("user"));
+    </script>
     
     
     
