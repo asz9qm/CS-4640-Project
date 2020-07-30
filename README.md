@@ -1,5 +1,7 @@
 ﻿# CS-4640-Project
 
+This is an application to track which courses you have taken and which courses you should take in the future. Focuses on UVA BACS desgree.  
+
 Database Set up
 Open XAMPP, create database name as cs4640_project
 Go to user accounts, go to your user and edit privileges, go to Database
